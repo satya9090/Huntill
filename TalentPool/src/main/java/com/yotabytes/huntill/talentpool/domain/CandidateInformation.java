@@ -29,6 +29,8 @@ public class CandidateInformation {
 	private String first_name;
 	private String middle_name;
 	private String last_name;
+	private String user_name ;
+	private String password;
 	private String location;
 	private Long contact_number;
 	private String email_id;

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,8 @@ import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswers;
 import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 import com.yotabytes.huntill.talentpool.service.impl.TalentPoolServiceImpl;
+import com.yotabytes.huntill.talentpool.utils.MailUtil;
+import com.yotabytes.huntill.talentpool.utils.PasswordEncryptionUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -51,6 +54,9 @@ public class TalentPoolApplicationMainController {
 
 	@Autowired
 	private TalentPoolService talentPoolService;
+
+	@Autowired
+	private PasswordEncryptionUtil encoder;
 
 	@RequestMapping("/")
 	@ResponseBody
@@ -86,12 +92,25 @@ public class TalentPoolApplicationMainController {
 
 		// create random unique id using randomUUID() method..
 		UUID uniqueKey = UUID.randomUUID();
-		String uniqueId = uniqueKey.toString();
+		String uniqueId = uniqueKey.toString().toUpperCase();
 		session.setAttribute("uniqueId", uniqueId);
-
+		information.setPassword(encoder.getEncriptedPassword(information.getPassword()));
 		information.setCandidate_uniqeId(uniqueId);
 
-		return talentPoolService.saveCandidateInformation(information);
+		information = talentPoolService.saveCandidateInformation(information);
+		if (Objects.nonNull(information)) {
+			MailUtil.sendToCandidateMail("", information.getEmail_id(), "", "TalentPool - Registration",
+					"Hello,<br/><br/> Registration sucessfully <br/><br/-----<br/><br/>Thank you");
+
+			MailUtil.sendMail("", "1994satyabrataw@gmail.com", "", "", "Candidate- Registration",
+					"Hello,<br/><br/> New coustomer registration ,<br/><br/><table border=1> <th>Email-Id</th><th>Contact-no</th>"
+							+ "<tr>" + "<td>" + information.getEmail_id() + "</td>" + "<td>"
+							+ information.getContact_number() + "</td>"
+
+							+ "</tr>"  + "</table>" + "</b><br/><br/>Message: <b>"
+							+ "</b><br/><br/-----<br/><br/>This e-mail was sent from  - Yotabytes PVT LTD. ");
+		}
+		return information;
 	}
 
 	// this method use to store candidateExperience in talent_candidate_experience

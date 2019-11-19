@@ -73,6 +73,25 @@
 									title="enter your last name if any.">
 							</div>
 						</div>
+						
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>User name</h4></label> <input
+									type="text" class="form-control" name="user_name"
+									id="user_name" placeholder="user_name"
+									title="enter your user_name if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>Password</h4></label> <input
+									type="password" class="form-control" name="password"
+									id="password" placeholder="password"
+									title="enter your password if any.">
+							</div>
+						</div>
 
 						<div class="form-group">
 
