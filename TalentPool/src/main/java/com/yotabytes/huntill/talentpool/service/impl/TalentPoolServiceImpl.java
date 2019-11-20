@@ -36,4 +36,20 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	public Talent_candidate_experience saveCandidateExperience(Talent_candidate_experience experience) {
 		return candidateExperienceRepository.save(experience);
 	}
+	
+	public CandidateInformation findByUsername(String username)
+	{
+		System.out.println("service method call");
+		return candidateInformationRepository.findByUsername(username);
+	}
+	
+	public CandidateInformation findByEmailId(String email)
+	{
+		return candidateInformationRepository.findByEmailId(email);
+	}
+	
+	public CandidateInformation findByUsernameAndPassword(String username, String password)
+	{
+		return candidateInformationRepository.findByUsernameAndPassword(username,password);
+	}
 }

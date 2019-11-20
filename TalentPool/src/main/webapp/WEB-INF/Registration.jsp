@@ -15,7 +15,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <head>
-<title>Bootstrap Example</title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -38,6 +38,7 @@
 				<li><a data-toggle="tab" href="#messages">Menu 2</a></li>
 				<li><a data-toggle="tab" href="#settings">Menu 3</a></li>
 				<li><a data-toggle="tab" href="#menu4">Menu 4</a></li>
+				<li><a href="loginPage">LOGIN</a></li>
 			</ul>
 
 
@@ -78,8 +79,8 @@
 
 							<div class="col-xs-6">
 								<label for="last_name"><h4>User name</h4></label> <input
-									type="text" class="form-control" name="user_name"
-									id="user_name" placeholder="user_name"
+									type="text" class="form-control" name="username"
+									id="username" placeholder="user_name"
 									title="enter your user_name if any.">
 							</div>
 						</div>
@@ -97,7 +98,7 @@
 
 							<div class="col-xs-6">
 								<label for="email"><h4>Email id</h4></label> <input type="email"
-									class="form-control" name="email_id" id="email"
+									class="form-control" name="emailId" id="emailId"
 									placeholder="you@email.com" title="enter your email.">
 							</div>
 						</div>

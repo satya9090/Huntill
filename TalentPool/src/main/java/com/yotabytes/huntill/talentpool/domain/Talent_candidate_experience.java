@@ -27,7 +27,7 @@ import lombok.ToString;
 
 public class Talent_candidate_experience {
 	@Id
-	/* @GeneratedValue(strategy=GenerationType.AUTO) */
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String candidate_uniqueId;
 	private String project_name;

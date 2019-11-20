@@ -17,5 +17,11 @@ public interface TalentPoolService {
 	public CandidateInformation saveCandidateInformation(CandidateInformation information);
 	
 	public Talent_candidate_experience saveCandidateExperience(Talent_candidate_experience experience);
+	
+	public CandidateInformation findByUsername(String username);
+	
+	public CandidateInformation findByEmailId(String email);
+
+	public CandidateInformation findByUsernameAndPassword(String username, String password);
 
 }

@@ -1,5 +1,7 @@
 package com.yotabytes.huntill.talentpool.domain;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
@@ -25,15 +27,15 @@ public class CandidateInformation {
 	
 	@Id
 	private int candidate_id;
-	private String candidate_uniqeId;
+	private String candidate_uniqeId=UUID.randomUUID().toString().toUpperCase();
 	private String first_name;
 	private String middle_name;
 	private String last_name;
-	private String user_name ;
+	private String username;
 	private String password;
 	private String location;
 	private Long contact_number;
-	private String email_id;
+	private String emailId;
 	private String alternate_email_id;
 	private String institute_name;
 	private String passing_year;

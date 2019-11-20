@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
@@ -83,34 +85,81 @@ public class TalentPoolApplicationMainController {
 
 		return new ModelAndView("Registration");
 	}
+	
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	public ModelAndView getLoginPage(Map<String, Object> model, HttpSession session) {
 
+		return new ModelAndView("Login");
+	}
+
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public  @ResponseBody CandidateInformation login(@ModelAttribute CandidateInformation information,
+			HttpSession session) {
+		
+		CandidateInformation candidateInformation=talentPoolService.findByUsernameAndPassword(information.getUsername(),encoder.getEncriptedPassword(information.getPassword()));
+		if(Objects.nonNull(candidateInformation)) {
+			System.out.println("login controller null");
+			return null;
+		}else {
+			System.out.println("login controller object");
+			return candidateInformation;
+		}
+		
+	}
 	// this method use to store candidateInformation in talent_candidate_information
 
 	@RequestMapping(value = "/candidateInformation", method = RequestMethod.POST)
 	public @ResponseBody CandidateInformation saveCandidateInformation(@ModelAttribute CandidateInformation information,
 			HttpSession session) {
+		
+		CandidateInformation checkUserName=new CandidateInformation();
+		CandidateInformation checkEmailId=new CandidateInformation();
+		
+		checkUserName=talentPoolService.findByUsername(information.getUsername());
+		checkEmailId=talentPoolService.findByEmailId(information.getEmailId());
+		if(Objects.nonNull(checkUserName))
+		{
+			return null;
+		}else {
+			
+			if(Objects.nonNull(checkEmailId))
+			{
+				return null;	
+			}else {
+				session.setAttribute("uniqueId",information.getCandidate_uniqeId());
+				information.setPassword(encoder.getEncriptedPassword(information.getPassword()));
+				
+				information = talentPoolService.saveCandidateInformation(information);
+				
+				if (Objects.nonNull(information)) {
+					MailUtil.sendToCandidateMail("", information.getEmailId(), "",
+							"TalentPool - Registration",
+							"Hello,<br/><br/> Registration sucessfully <br/>"
+							+ "<br/-----<br/><br/>Thank you");
 
-		// create random unique id using randomUUID() method..
-		UUID uniqueKey = UUID.randomUUID();
-		String uniqueId = uniqueKey.toString().toUpperCase();
-		session.setAttribute("uniqueId", uniqueId);
-		information.setPassword(encoder.getEncriptedPassword(information.getPassword()));
-		information.setCandidate_uniqeId(uniqueId);
-
-		information = talentPoolService.saveCandidateInformation(information);
-		if (Objects.nonNull(information)) {
-			MailUtil.sendToCandidateMail("", information.getEmail_id(), "", "TalentPool - Registration",
-					"Hello,<br/><br/> Registration sucessfully <br/><br/-----<br/><br/>Thank you");
-
-			MailUtil.sendMail("", "1994satyabrataw@gmail.com", "", "", "Candidate- Registration",
-					"Hello,<br/><br/> New coustomer registration ,<br/><br/><table border=1> <th>Email-Id</th><th>Contact-no</th>"
-							+ "<tr>" + "<td>" + information.getEmail_id() + "</td>" + "<td>"
-							+ information.getContact_number() + "</td>"
-
-							+ "</tr>"  + "</table>" + "</b><br/><br/>Message: <b>"
-							+ "</b><br/><br/-----<br/><br/>This e-mail was sent from  - Yotabytes PVT LTD. ");
+					MailUtil.sendMail("", "1994satyabrataw@gmail.com",
+							"", "",
+							"Candidate- Registration",
+							"Hello,<br/><br/> New coustomer registration ,<br/><br/>"
+							+ "<table border=1>"
+							+ "<th>Name</th>"
+							+ "<th>Email-Id</th>"
+							+ "<th>Contact-no</th>"
+									+ "<tr>" + "<td>" + information.getFirst_name()+information.getMiddle_name()+""+information.getLast_name() 
+									+ "</td>"  + "<td>" + information.getEmailId() 
+									+ "</td>" + "<td>"+ information.getContact_number()
+									+ "</td>"+ "</tr>"  + "</table>" 
+									+ "</b><br/><br/>Message: <b>"
+									+ "</b><br/><br/-----<br/><br/>"
+									+ "This e-mail was sent from  - Yotabytes PVT LTD. ");
+				}
+				return information;
+			}
+			
 		}
-		return information;
+		
+		
 	}
 
 	// this method use to store candidateExperience in talent_candidate_experience
