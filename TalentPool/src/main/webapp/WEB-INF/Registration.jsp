@@ -78,10 +78,10 @@
 						<div class="form-group">
 
 							<div class="col-xs-6">
-								<label for="last_name"><h4>User name</h4></label> <input
-									type="text" class="form-control" name="username"
-									id="username" placeholder="user_name"
-									title="enter your user_name if any.">
+								<label for="last_name"><h4>User Id</h4></label> <input
+									type="text" class="form-control" name="userId"
+									id="userId" placeholder="userId"
+									title="enter your userId if any.">
 							</div>
 						</div>
 						<div class="form-group">
@@ -107,7 +107,7 @@
 
 							<div class="col-xs-6">
 								<label for="alternate_email_id"><h4> Alternate Email id</h4></label> <input type="email"
-									class="form-control" name="alternate_email_id" id="alternate_email_id"
+									class="form-control" name="alternateEmail_id" id="alternateEmail_id"
 									placeholder="you@email.com" title="enter your alternate_email_id">
 							</div>
 						</div>

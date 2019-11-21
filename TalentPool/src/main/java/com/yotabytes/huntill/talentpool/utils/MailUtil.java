@@ -9,6 +9,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.sun.research.ws.wadl.Request;
+import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
 
 public class MailUtil {
 
@@ -122,4 +127,33 @@ public class MailUtil {
 		}).start();
 
 	}
+	public static void mailSendUtil(HttpSession session,HttpServletRequest request)
+	{
+		CandidateInformation information=(CandidateInformation)session.getAttribute("information");
+		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
+				"TalentPool - Registration",
+				"Hello,<br/><br/> Registration sucessfully <br/>"
+				+"<html><body><p>"+"<a href=http://"+request.getServerName()+":"+request.getServerPort()
+				+"/"+"api"+"/"
+				+"VerifyEmail"+"?"+"uniqeId"+"="+information.getCandidateUniqeId()
+				+">VerifyEmail</a></body></html>"
+				+  "<br/-----<br/><br/>Thank you");
+
+		MailUtil.sendMail("", "1994satyabrataw@gmail.com",
+				"", "",
+				"Candidate- Registration",
+				"Hello,<br/><br/> New coustomer registration ,<br/><br/>"
+				+ "<table border=1>"
+				+ "<th>Name</th>"
+				+ "<th>Email-Id</th>"
+				+ "<th>Contact-no</th>"
+						+ "<tr>" + "<td>" + information.getFirst_name()+information.getMiddle_name()+""+information.getLast_name() 
+						+ "</td>"  + "<td>" + information.getEmailId() 
+						+ "</td>" + "<td>"+ information.getContact_number()
+						+ "</td>"+ "</tr>"  + "</table>" 
+						+ "</b><br/><br/>Message: <b>"
+						+ "</b><br/><br/-----<br/><br/>"
+						+ "This e-mail was sent from  - Yotabytes PVT LTD. ");
+	}
+	
 }

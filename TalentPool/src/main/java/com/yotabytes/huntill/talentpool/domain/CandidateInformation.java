@@ -2,10 +2,13 @@ package com.yotabytes.huntill.talentpool.domain;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,20 +30,21 @@ public class CandidateInformation {
 	
 	@Id
 	private int candidate_id;
-	private String candidate_uniqeId=UUID.randomUUID().toString().toUpperCase();
+	private String candidateUniqeId=UUID.randomUUID().toString().toUpperCase();
 	private String first_name;
 	private String middle_name;
 	private String last_name;
-	private String username;
+	private String userId; 
 	private String password;
 	private String location;
 	private Long contact_number;
 	private String emailId;
-	private String alternate_email_id;
+	private String alternateEmail_id;
 	private String institute_name;
 	private String passing_year;
 	private String grade;
 	private String gender;
+	private String isVerify;
 	
 
 }

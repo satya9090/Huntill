@@ -37,10 +37,10 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		return candidateExperienceRepository.save(experience);
 	}
 	
-	public CandidateInformation findByUsername(String username)
+	public CandidateInformation findByUserId(String userId)
 	{
 		System.out.println("service method call");
-		return candidateInformationRepository.findByUsername(username);
+		return candidateInformationRepository.findByUserId(userId);
 	}
 	
 	public CandidateInformation findByEmailId(String email)
@@ -50,6 +50,11 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	
 	public CandidateInformation findByUsernameAndPassword(String username, String password)
 	{
-		return candidateInformationRepository.findByUsernameAndPassword(username,password);
+		return candidateInformationRepository.findByUserIdAndPassword(username,password);
+	}
+	
+	public CandidateInformation findByCandidateUniqeId(String candidateUniqeId)
+	{
+		return candidateInformationRepository.findByCandidateUniqeId(candidateUniqeId);
 	}
 }

@@ -89,7 +89,7 @@ public class TalentPoolApplicationMainController {
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public ModelAndView getLoginPage(Map<String, Object> model, HttpSession session) {
 
-		return new ModelAndView("Login");
+		return new ModelAndView("Login");   
 	}
 
 	
@@ -97,7 +97,7 @@ public class TalentPoolApplicationMainController {
 	public  @ResponseBody CandidateInformation login(@ModelAttribute CandidateInformation information,
 			HttpSession session) {
 		
-		CandidateInformation candidateInformation=talentPoolService.findByUsernameAndPassword(information.getUsername(),encoder.getEncriptedPassword(information.getPassword()));
+		CandidateInformation candidateInformation=talentPoolService.findByUsernameAndPassword(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()));
 		if(Objects.nonNull(candidateInformation)) {
 			System.out.println("login controller null");
 			return null;
@@ -111,12 +111,12 @@ public class TalentPoolApplicationMainController {
 
 	@RequestMapping(value = "/candidateInformation", method = RequestMethod.POST)
 	public @ResponseBody CandidateInformation saveCandidateInformation(@ModelAttribute CandidateInformation information,
-			HttpSession session) {
+			HttpSession session,HttpServletRequest request) {
 		
 		CandidateInformation checkUserName=new CandidateInformation();
 		CandidateInformation checkEmailId=new CandidateInformation();
 		
-		checkUserName=talentPoolService.findByUsername(information.getUsername());
+		checkUserName=talentPoolService.findByUserId(information.getUserId());
 		checkEmailId=talentPoolService.findByEmailId(information.getEmailId());
 		if(Objects.nonNull(checkUserName))
 		{
@@ -127,32 +127,15 @@ public class TalentPoolApplicationMainController {
 			{
 				return null;	
 			}else {
-				session.setAttribute("uniqueId",information.getCandidate_uniqeId());
+				session.setAttribute("uniqueId",information.getCandidateUniqeId());
 				information.setPassword(encoder.getEncriptedPassword(information.getPassword()));
 				
 				information = talentPoolService.saveCandidateInformation(information);
-				
+				session.setAttribute("information",information);
 				if (Objects.nonNull(information)) {
-					MailUtil.sendToCandidateMail("", information.getEmailId(), "",
-							"TalentPool - Registration",
-							"Hello,<br/><br/> Registration sucessfully <br/>"
-							+ "<br/-----<br/><br/>Thank you");
-
-					MailUtil.sendMail("", "1994satyabrataw@gmail.com",
-							"", "",
-							"Candidate- Registration",
-							"Hello,<br/><br/> New coustomer registration ,<br/><br/>"
-							+ "<table border=1>"
-							+ "<th>Name</th>"
-							+ "<th>Email-Id</th>"
-							+ "<th>Contact-no</th>"
-									+ "<tr>" + "<td>" + information.getFirst_name()+information.getMiddle_name()+""+information.getLast_name() 
-									+ "</td>"  + "<td>" + information.getEmailId() 
-									+ "</td>" + "<td>"+ information.getContact_number()
-									+ "</td>"+ "</tr>"  + "</table>" 
-									+ "</b><br/><br/>Message: <b>"
-									+ "</b><br/><br/-----<br/><br/>"
-									+ "This e-mail was sent from  - Yotabytes PVT LTD. ");
+					
+					MailUtil.mailSendUtil(session,request);
+					
 				}
 				return information;
 			}
@@ -186,5 +169,22 @@ public class TalentPoolApplicationMainController {
 		return talentPoolService.saveCandidateExperience(experience);
 
 	}
+	
+	// This method use to check this mailId is valid od not.
+	
+	@RequestMapping(value = "/VerifyEmail", method = RequestMethod.GET)
+	public CandidateInformation checkValidEmail(@RequestParam("uniqeId") String candidateUniqeId) {
 
+		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
+		if(Objects.nonNull(information))
+		{
+			information.setIsVerify("Y");
+			
+			return talentPoolService.saveCandidateInformation(information);	
+		}else {
+			return null;
+		}
+		
+		
+	}
 }

@@ -7,10 +7,12 @@ import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
 @Repository
 public interface CandidateInformationRepository extends CrudRepository<CandidateInformation, String> {
 
-	CandidateInformation findByUsername(String user_name);
+	CandidateInformation findByUserId(String user_name);
 
 	CandidateInformation findByEmailId(String email);
 
-	CandidateInformation findByUsernameAndPassword(String username, String password);
+	CandidateInformation findByUserIdAndPassword(String username, String password);
+
+	CandidateInformation findByCandidateUniqeId(String candidateUniqeId);
 
 }
