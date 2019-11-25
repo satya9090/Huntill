@@ -34,22 +34,18 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="login" method="post">
-        <h2 class="text-center">Log in</h2>       
+    <form action="checkPassword" method="post">
+        <h2 class="text-center">Enter your mail Id</h2>       
+        
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="userId" required="required" name="userId">
+            <input type="email" class="form-control" placeholder="Email" required="required" name="email">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required" name="password">
+            <button type="submit" class="btn btn-primary btn-block">save</button>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>
-        <div class="clearfix">
-             <p class="text-center"><a href="Forgotpassword">Forgot password.</a></p>
-        </div>        
+              
     </form>
-    <p class="text-center"><a href="Registration">Create an Account</a></p>
+    
 </div>
 </body>
 </html>                                		                            

@@ -4,7 +4,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,10 +26,11 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-/* @Table( name="talent_candidate_information" ) */
+  
 public class CandidateInformation {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int candidate_id;
 	private String candidateUniqeId=UUID.randomUUID().toString().toUpperCase();
 	private String first_name;
@@ -44,6 +46,7 @@ public class CandidateInformation {
 	private String passing_year;
 	private String grade;
 	private String gender;
+	private String role;
 	private String isVerify;
 	
 

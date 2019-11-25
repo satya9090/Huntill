@@ -22,8 +22,10 @@ public interface TalentPoolService {
 	
 	public CandidateInformation findByEmailId(String email);
 
-	public CandidateInformation findByUsernameAndPassword(String username, String password);
+	public CandidateInformation findByUserIdAndPassword(String username, String password);
 
 	public CandidateInformation findByCandidateUniqeId(String candidateUniqeId);
+
+	public CandidateInformation save(String encriptedPassword);
 
 }

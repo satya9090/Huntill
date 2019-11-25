@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,6 +87,17 @@ public class TalentPoolApplicationMainController {
 		return new ModelAndView("Registration");
 	}
 	
+	@RequestMapping(value = "/Forgotpassword", method = RequestMethod.GET)
+	public ModelAndView getResetPassword(Map<String, Object> model, HttpSession session) {
+
+		return new ModelAndView("ResetPassword");
+	}
+	
+	@RequestMapping(value = "/ResetPasswordPage", method = RequestMethod.GET)
+	public ModelAndView getResetPasswordPage(Map<String, Object> model, HttpSession session) {
+
+		return new ModelAndView("ResetPasswordPage");
+	}
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public ModelAndView getLoginPage(Map<String, Object> model, HttpSession session) {
 
@@ -97,14 +109,14 @@ public class TalentPoolApplicationMainController {
 	public  @ResponseBody CandidateInformation login(@ModelAttribute CandidateInformation information,
 			HttpSession session) {
 		
-		CandidateInformation candidateInformation=talentPoolService.findByUsernameAndPassword(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()));
+		CandidateInformation candidateInformation=talentPoolService.findByUserIdAndPassword(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()));
 		if(Objects.nonNull(candidateInformation)) {
-			System.out.println("login controller null");
-			return null;
-		}else {
-			System.out.println("login controller object");
+			
 			return candidateInformation;
-		}
+		}else { 
+			
+			return null;
+		} 
 		
 	}
 	// this method use to store candidateInformation in talent_candidate_information
@@ -128,8 +140,14 @@ public class TalentPoolApplicationMainController {
 				return null;	
 			}else {
 				session.setAttribute("uniqueId",information.getCandidateUniqeId());
-				information.setPassword(encoder.getEncriptedPassword(information.getPassword()));
 				
+				  information.setPassword(encoder.getEncriptedPassword(information.getPassword())); 
+				/*
+				 * String pass=information.getPassword(); byte[] bytes = pass.getBytes(); String
+				 * password=PasswordEncryptionUtil.bytesToHex(bytes);
+				 * System.out.println(password);
+				 */
+				 
 				information = talentPoolService.saveCandidateInformation(information);
 				session.setAttribute("information",information);
 				if (Objects.nonNull(information)) {
@@ -185,6 +203,37 @@ public class TalentPoolApplicationMainController {
 			return null;
 		}
 		
+		
+	}
+	
+	@RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
+	public CandidateInformation checkPassword(@RequestParam("email") String emailId,HttpSession session,HttpServletRequest request) {
+		CandidateInformation information=null;
+		information=talentPoolService.findByEmailId(emailId);
+		session.setAttribute("information",information);
+		if(Objects.nonNull(information))
+		{
+			MailUtil.mailSendToResetPassword(session,request);
+			return information;
+		}else {
+			return null;
+		}
+
+		
+	}
+	
+	@RequestMapping(value = "/UpdatePassword", method = RequestMethod.POST) 
+	public CandidateInformation updatePassword(@RequestParam("emailId") String emailId ,@RequestParam("password") String password,HttpServletRequest request) {
+		
+		CandidateInformation information=talentPoolService.findByEmailId(emailId);
+		if(Objects.nonNull(information))
+		{
+			information.setPassword(encoder.getEncriptedPassword(password));
+			return talentPoolService.saveCandidateInformation(information);
+		}
+		else {
+			return null;
+		}
 		
 	}
 }

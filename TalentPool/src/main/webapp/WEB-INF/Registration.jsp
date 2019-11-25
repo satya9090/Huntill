@@ -170,6 +170,20 @@
 
 								</select>
 							</div>
+						</div><br>
+						<div class="form-group">
+
+							<div class="col-xs-6"> 
+								<label for="passing_year"><h4>Role</h4></label>
+								 <select class="form-control buttom"
+									name="role">
+
+									<option value="Employer">Employer</option>
+									<option value="Customer">Customer</option>
+									
+
+								</select>
+							</div>
 						</div>
 
 						<div class="form-group">

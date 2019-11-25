@@ -133,9 +133,12 @@ public class MailUtil {
 		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
 				"TalentPool - Registration",
 				"Hello,<br/><br/> Registration sucessfully <br/>"
-				+"<html><body><p>"+"<a href=http://"+request.getServerName()+":"+request.getServerPort()
+				+"<html><body><p>"+"<a href=http://"
+				+request.getServerName()+":"
+				+request.getServerPort()
 				+"/"+"api"+"/"
-				+"VerifyEmail"+"?"+"uniqeId"+"="+information.getCandidateUniqeId()
+				+"VerifyEmail"+"?"
+				+"uniqeId"+"="+information.getCandidateUniqeId()
 				+">VerifyEmail</a></body></html>"
 				+  "<br/-----<br/><br/>Thank you");
 
@@ -156,4 +159,20 @@ public class MailUtil {
 						+ "This e-mail was sent from  - Yotabytes PVT LTD. ");
 	}
 	
+	public static void mailSendToResetPassword(HttpSession session,HttpServletRequest request)
+	{
+		CandidateInformation information=(CandidateInformation)session.getAttribute("information");
+		session.setAttribute("mail", information.getEmailId());
+		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
+				"TalentPool - ResetPassword",
+				"Hello,<br/><br/> Reset your Password  <br/>"
+				+"<html><body><p>"+"<a href=http://"
+				+request.getServerName()+":"
+				+request.getServerPort()
+				+"/"+"api"+"/"
+				+"ResetPasswordPage"
+				+">ResetPassword</a></body></html>"
+				+  "<br/-----<br/><br/>Thank you");
+	
+}
 }
