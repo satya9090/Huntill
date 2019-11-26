@@ -37,7 +37,7 @@
     <form action="UpdatePassword" method="post">
         <h2 class="text-center">Reset Password</h2>       
         <div class="form-group">
-            <input type="hidden" class="form-control" value="<%=session.getAttribute("mail")%>" required="required" name="emailId">
+            <input type="hidden" class="form-control" value="<%=session.getAttribute("candidate_uniqueId")%>" required="required" name="candidateUniqeId">
         </div>
         <div class="form-group">
             <input type="password" class="form-control" placeholder="password" required="required" name="password">

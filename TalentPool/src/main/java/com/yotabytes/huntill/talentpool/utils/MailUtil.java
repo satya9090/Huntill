@@ -162,7 +162,7 @@ public class MailUtil {
 	public static void mailSendToResetPassword(HttpSession session,HttpServletRequest request)
 	{
 		CandidateInformation information=(CandidateInformation)session.getAttribute("information");
-		session.setAttribute("mail", information.getEmailId());
+		session.setAttribute("candidate_uniqueId", information.getCandidateUniqeId());
 		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
 				"TalentPool - ResetPassword",
 				"Hello,<br/><br/> Reset your Password  <br/>"

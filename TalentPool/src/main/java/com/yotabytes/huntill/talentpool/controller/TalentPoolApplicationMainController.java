@@ -223,9 +223,9 @@ public class TalentPoolApplicationMainController {
 	}
 	
 	@RequestMapping(value = "/UpdatePassword", method = RequestMethod.POST) 
-	public CandidateInformation updatePassword(@RequestParam("emailId") String emailId ,@RequestParam("password") String password,HttpServletRequest request) {
+	public CandidateInformation updatePassword(@RequestParam("candidateUniqeId") String candidateUniqeId ,@RequestParam("password") String password,HttpServletRequest request) {
 		
-		CandidateInformation information=talentPoolService.findByEmailId(emailId);
+		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
 		if(Objects.nonNull(information))
 		{
 			information.setPassword(encoder.getEncriptedPassword(password));

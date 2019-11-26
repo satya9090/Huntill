@@ -37,8 +37,6 @@ CREATE TABLE `talent_candidate_experience_details` (
 
 DROP TABLE IF EXISTS `talent_candidate_personal_details`;
 
-CREATE TABLE `talent_candidate_personal_details` (
-  `candidate_id` int(11) NOT NULL,
   `alternate_email_id` varchar(255) DEFAULT NULL,
   `candidate_uniqe_id` varchar(255) DEFAULT NULL,
   `contact_number` bigint(20) DEFAULT NULL,
