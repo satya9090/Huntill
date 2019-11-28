@@ -38,14 +38,14 @@
 				<li><a data-toggle="tab" href="#messages">Menu 2</a></li>
 				<li><a data-toggle="tab" href="#settings">Menu 3</a></li>
 				<li><a data-toggle="tab" href="#menu4">Menu 4</a></li>
-				<li><a href="loginPage">LOGIN</a></li>
+				
 			</ul>
 
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
 					<hr>
-					<form class="form" action="candidateInformation" method="post"
+					<form class="form" action="candidateInformationUpdate" method="post"
 						id="registrationForm">
 						<div class="form-group">
 
@@ -174,12 +174,12 @@
 						<div class="form-group">
 
 							<div class="col-xs-6"> 
-								<label for="passing_year"><h4>isEmployer</h4></label>
+								<label for="passing_year"><h4>Role</h4></label>
 								 <select class="form-control buttom"
-									name="isEmployer">
+									name="role">
 
-									<option value="Y">Yes</option>
-									<option value="N">No</option>
+									<option value="Employer">Employer</option>
+									<option value="Customer">Customer</option>
 									
 
 								</select>
@@ -323,7 +323,7 @@
 
 
 					<hr>
-					<form class="form" action="candidateExperience" method="post"
+					<form class="form" action="candidateExperienceUpdate" method="post"
 						id="registrationForm">
 						<div class="form-group">
 

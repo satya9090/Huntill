@@ -4,9 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
-import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswers;
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
+
 
 @Repository
-public interface TalentQuestionRepository extends JpaRepository<TalentQuestionAnswers, Long> {
+public interface TalentQuestionRepository extends JpaRepository<TalentQuestionOption, Long> {
 
 }

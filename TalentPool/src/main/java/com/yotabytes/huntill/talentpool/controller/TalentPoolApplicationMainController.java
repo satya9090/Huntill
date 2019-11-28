@@ -1,12 +1,13 @@
 package com.yotabytes.huntill.talentpool.controller;
 
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -37,7 +38,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
-import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswers;
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
 import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 import com.yotabytes.huntill.talentpool.service.impl.TalentPoolServiceImpl;
@@ -73,9 +74,9 @@ public class TalentPoolApplicationMainController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
 	@RequestMapping(value = "/getTalentQuestions", method = RequestMethod.GET)
-	public ResponseEntity<List<TalentQuestionAnswers>> findAll() {
+	public ResponseEntity<List<TalentQuestionOption>> findAll() {
 
-		List<TalentQuestionAnswers> talentQuestions = talentPoolService.findAll();
+		List<TalentQuestionOption> talentQuestions = talentPoolService.findAll();
 		System.out.println("Controller..." + new ResponseEntity<>(talentQuestions, HttpStatus.FOUND));
 		return new ResponseEntity<>(talentQuestions, HttpStatus.FOUND);
 
@@ -173,7 +174,7 @@ public class TalentPoolApplicationMainController {
 
 		try {
 
-			experience.setCandidate_uniqueId(session.getAttribute("uniqueId").toString());
+			experience.setCandidateUniqueId(session.getAttribute("uniqueId").toString());
 			experience.setProject_name(request.getParameter("project_name"));
 			experience.setStart_date(df.parse(request.getParameter("start_date")));
 			experience.setEnd_date(df.parse(request.getParameter("end_date")));
@@ -236,4 +237,23 @@ public class TalentPoolApplicationMainController {
 		}
 		
 	}
-}
+	
+	@RequestMapping(value = "/UpdateRegistrationPage", method = RequestMethod.GET) 
+	public ModelAndView UpdateRegistrationPage(@RequestParam("candidateUniqeId") String candidateUniqeId,HttpSession session) {
+		ArrayList list=new ArrayList();
+		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
+		Talent_candidate_experience experience=talentPoolService.findByCandidateUniqeid(candidateUniqeId);
+		list.add(information);
+		list.add(experience);
+		session.setAttribute("CnadidateInfo", list);
+		return new ModelAndView("UpdateRegistration");
+	}
+	
+	@RequestMapping(value = "/candidateInformationUpdate", method = RequestMethod.PUT)
+	public @ResponseBody CandidateInformation updateCandidateInformation(@ModelAttribute CandidateInformation information,
+			HttpSession session,HttpServletRequest request) {
+		
+		return talentPoolService.saveCandidateInformation(information);
+	}
+	}
+

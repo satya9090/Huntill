@@ -25,7 +25,7 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	private CandidateExperienceRepository candidateExperienceRepository;
 	
 	
-	public List<TalentQuestionAnswers> findAll() {
+	public List<TalentQuestionOption> findAll() {
 		return talentQuestionRepository.findAll();
 	}
 
@@ -58,8 +58,11 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		return candidateInformationRepository.findByCandidateUniqeId(candidateUniqeId);
 	}
 	
-	public CandidateInformation save(String encriptedPassword)
+	/*
+	 * public CandidateInformation save(String encriptedPassword) { return null; }
+	 */
+	public Talent_candidate_experience findByCandidateUniqeid(String candidateUniqeId)
 	{
-		return null;
+		return candidateExperienceRepository.findBycandidateUniqueId(candidateUniqeId);
 	}
 }

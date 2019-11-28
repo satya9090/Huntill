@@ -29,7 +29,7 @@ public class Talent_candidate_experience {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String candidate_uniqueId;
+	private String candidateUniqueId;
 	private String project_name;
 	private Date start_date;
 	private Date end_date;

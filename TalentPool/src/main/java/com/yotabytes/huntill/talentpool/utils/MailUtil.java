@@ -114,7 +114,7 @@ public class MailUtil {
 
 					Transport.send(message);
 
-					
+					 
 					System.out.println("Email sent to :" + toaddress
 							+ " ," + bccaddress+", successfully......");
 					

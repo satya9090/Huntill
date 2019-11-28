@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Generated;
 
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption.TalentQuestionOptionBuilder;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -22,10 +24,14 @@ import lombok.ToString;
 
 @Entity (name= "talent_candidate_personal_details")
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Getter
 @Setter
+
   
 public class CandidateInformation {
 	
@@ -46,8 +52,9 @@ public class CandidateInformation {
 	private String passing_year;
 	private String grade;
 	private String gender;
-	private String role;
+	private String isEmployer;
 	private String isVerify;
+	private String isActive;
 	
 
 }

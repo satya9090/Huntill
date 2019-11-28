@@ -1,9 +1,17 @@
 package com.yotabytes.huntill.talentpool.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "talent_question_answer")
+@Entity(name = "talent_question_option")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,13 +30,13 @@ import lombok.ToString;
 @Getter
 @Setter
 
-public class Talent_Question_answer {
+public class TalentQuestionOption {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String candidateUniqueid;
-	private Integer questionId;
-	private String questionAnswer;
-	
+	private Integer TalentQuestionAnswerId;
+	private Integer questionId; 
+	private String answerDescription;
+	private String answerOption;
 	
 }

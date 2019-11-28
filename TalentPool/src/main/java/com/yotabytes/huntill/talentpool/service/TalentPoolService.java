@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
-import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswers;
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
 import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
 
 @Service
 public interface TalentPoolService {
 	
-	public List<TalentQuestionAnswers> findAll();
+	public List<TalentQuestionOption> findAll();
 	
 	public CandidateInformation saveCandidateInformation(CandidateInformation information);
 	
@@ -26,6 +26,8 @@ public interface TalentPoolService {
 
 	public CandidateInformation findByCandidateUniqeId(String candidateUniqeId);
 
-	public CandidateInformation save(String encriptedPassword);
+	/* public CandidateInformation save(String encriptedPassword); */
+
+	public Talent_candidate_experience findByCandidateUniqeid(String candidateUniqeId);
 
 }
