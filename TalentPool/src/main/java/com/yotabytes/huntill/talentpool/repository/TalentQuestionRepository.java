@@ -8,6 +8,6 @@ import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
 
 
 @Repository
-public interface TalentQuestionRepository extends JpaRepository<TalentQuestionOption, Long> {
+public interface TalentQuestionRepository extends JpaRepository<TalentQuestion, Long> {
 
 }

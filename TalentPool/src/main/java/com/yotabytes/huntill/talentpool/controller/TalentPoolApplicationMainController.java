@@ -74,9 +74,9 @@ public class TalentPoolApplicationMainController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
 	@RequestMapping(value = "/getTalentQuestions", method = RequestMethod.GET)
-	public ResponseEntity<List<TalentQuestionOption>> findAll() {
+	public ResponseEntity<List<TalentQuestion>> findAll() {
 
-		List<TalentQuestionOption> talentQuestions = talentPoolService.findAll();
+		List<TalentQuestion> talentQuestions = talentPoolService.findAll();
 		System.out.println("Controller..." + new ResponseEntity<>(talentQuestions, HttpStatus.FOUND));
 		return new ResponseEntity<>(talentQuestions, HttpStatus.FOUND);
 

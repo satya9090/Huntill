@@ -12,7 +12,7 @@ import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
 @Service
 public interface TalentPoolService {
 	
-	public List<TalentQuestionOption> findAll();
+	public List<TalentQuestion> findAll();
 	
 	public CandidateInformation saveCandidateInformation(CandidateInformation information);
 	

@@ -25,7 +25,7 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	private CandidateExperienceRepository candidateExperienceRepository;
 	
 	
-	public List<TalentQuestionOption> findAll() {
+	public List<TalentQuestion> findAll() {
 		return talentQuestionRepository.findAll();
 	}
 
