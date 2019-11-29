@@ -22,7 +22,7 @@ public interface TalentPoolService {
 	
 	public CandidateInformation findByEmailId(String email);
 
-	public CandidateInformation findByUserIdAndPassword(String username, String password);
+	public CandidateInformation findByUserIdAndPasswordAndIsActive(String username, String password,String isActive);
 
 	public CandidateInformation findByCandidateUniqeId(String candidateUniqeId);
 

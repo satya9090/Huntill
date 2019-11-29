@@ -11,8 +11,13 @@ public interface CandidateInformationRepository extends CrudRepository<Candidate
 
 	CandidateInformation findByEmailId(String email);
 
-	CandidateInformation findByUserIdAndPassword(String username, String password);
+	/*
+	 * CandidateInformation findByUserIdAndPassword(String username, String
+	 * password);
+	 */
 
 	CandidateInformation findByCandidateUniqeId(String candidateUniqeId);
+
+	CandidateInformation findByUserIdAndPasswordAndIsActive(String username, String password, String isActive);
 
 }

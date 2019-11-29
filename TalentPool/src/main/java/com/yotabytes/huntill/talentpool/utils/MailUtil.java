@@ -42,7 +42,7 @@ public class MailUtil {
 				Session session = Session.getInstance(props,
 						new javax.mail.Authenticator() {
 							protected PasswordAuthentication getPasswordAuthentication() {
-								return new PasswordAuthentication(username,
+								return new PasswordAuthentication(username, 
 										password);
 							}
 						});

@@ -1,4 +1,4 @@
-package com.yotabytes.huntill.talentpool.controller;
+ package com.yotabytes.huntill.talentpool.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,12 +108,12 @@ public class TalentPoolApplicationMainController {
 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public  @ResponseBody CandidateInformation login(@ModelAttribute CandidateInformation information,
+	public  @ResponseBody CandidateInformation login(@RequestBody CandidateInformation information,
 			HttpSession session) {
-		
-		CandidateInformation candidateInformation=talentPoolService.findByUserIdAndPassword(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()));
+		information.setIsActive("y");
+		CandidateInformation candidateInformation=talentPoolService.findByUserIdAndPasswordAndIsActive(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()),information.getIsActive());
 		if(Objects.nonNull(candidateInformation)) {
-			
+			System.out.println("SUCCESFULLY");
 			return candidateInformation;
 		}else { 
 			
@@ -238,22 +239,60 @@ public class TalentPoolApplicationMainController {
 		
 	}
 	
-	@RequestMapping(value = "/UpdateRegistrationPage", method = RequestMethod.GET) 
-	public ModelAndView UpdateRegistrationPage(@RequestParam("candidateUniqeId") String candidateUniqeId,HttpSession session) {
+	@RequestMapping(value = "/UpdateRegistrationPageById", method = RequestMethod.GET) 
+	public List UpdateRegistrationPage(@RequestParam("candidateUniqeId") String candidateUniqeId,HttpSession session) {
+		session.setAttribute("candidateUniqeId", candidateUniqeId);
+		
 		ArrayList list=new ArrayList();
 		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
 		Talent_candidate_experience experience=talentPoolService.findByCandidateUniqeid(candidateUniqeId);
 		list.add(information);
 		list.add(experience);
 		session.setAttribute("CnadidateInfo", list);
-		return new ModelAndView("UpdateRegistration");
+		return list;
 	}
 	
 	@RequestMapping(value = "/candidateInformationUpdate", method = RequestMethod.PUT)
-	public @ResponseBody CandidateInformation updateCandidateInformation(@ModelAttribute CandidateInformation information,
-			HttpSession session,HttpServletRequest request) {
-		
-		return talentPoolService.saveCandidateInformation(information);
+	public @ResponseBody CandidateInformation updateCandidateInformation(@RequestBody CandidateInformation information,HttpSession session,HttpServletRequest request) {
+		CandidateInformation information1=talentPoolService.findByCandidateUniqeId(session.getAttribute("candidateUniqeId").toString());
+		if(Objects.nonNull(information1))
+		{
+			information1.setFirst_name(information.getFirst_name());
+			information1.setMiddle_name(information.getMiddle_name());
+			information1.setLast_name(information.getLast_name());
+			information1.setEmailId(information.getEmailId());
+			information1.setAlternateEmail_id(information.getAlternateEmail_id());
+			information1.setContact_number(information.getContact_number());
+			information1.setGender(information.getGender());
+			information1.setGrade(information.getGrade());
+			information1.setInstitute_name(information.getInstitute_name());
+			information1.setIsActive(information.getIsActive());
+			information1.setIsEmployer(information.getIsEmployer());
+			information1.setIsVerify(information.getIsVerify());  
+			information1.setLocation(information.getLocation());
+			information1.setPassing_year(information.getPassing_year());
+			information1.setPassword(information.getPassword());
+			information1.setUserId(information.getUserId());
+			information1.setCandidate_id(information.getCandidate_id());
+			return talentPoolService.saveCandidateInformation(information1); 
+		}else {
+			return null;
+		}
 	}
+	@RequestMapping(value = "/candidateDeleteById", method = RequestMethod.POST)
+	public @ResponseBody CandidateInformation deleteById(@RequestParam("candidateUniqeId") String candidateUniqeId,
+			HttpSession session,HttpServletRequest request) {
+		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
+		if(Objects.nonNull(information))
+		{
+			information.setIsActive("N");
+			
+			return talentPoolService.saveCandidateInformation(information);	
+		}else {
+			return null;
+		}
+		
+	}
+	
 	}
 

@@ -53,7 +53,9 @@ public class CandidateInformation {
 	private String grade;
 	private String gender;
 	private String isEmployer;
-	private String isVerify;
+ @Column(columnDefinition = "varchar(10) default 'N'")
+	 private String isVerify;
+ @Column(columnDefinition = "varchar(10) default 'Y'")
 	private String isActive;
 	
 

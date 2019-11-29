@@ -48,9 +48,9 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		return candidateInformationRepository.findByEmailId(email);
 	}
 	
-	public CandidateInformation findByUserIdAndPassword(String username, String password)
+	public CandidateInformation findByUserIdAndPasswordAndIsActive(String username, String password,String isActive)
 	{
-		return candidateInformationRepository.findByUserIdAndPassword(username, password);
+		return candidateInformationRepository.findByUserIdAndPasswordAndIsActive(username, password,isActive);
 	}
 	
 	public CandidateInformation findByCandidateUniqeId(String candidateUniqeId)
