@@ -1,13 +1,18 @@
 package com.yotabytes.huntill.talentpool.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
+import com.yotabytes.huntill.talentpool.domain.SearchCandidate;
+import com.yotabytes.huntill.talentpool.domain.TalentCandidateExperience;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswer;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
-import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
+
+
 
 @Service
 public interface TalentPoolService {
@@ -16,7 +21,7 @@ public interface TalentPoolService {
 	
 	public CandidateInformation saveCandidateInformation(CandidateInformation information);
 	
-	public Talent_candidate_experience saveCandidateExperience(Talent_candidate_experience experience);
+	public TalentCandidateExperience saveCandidateExperience(TalentCandidateExperience experience);
 	
 	public CandidateInformation findByUserId(String userId);
 	
@@ -28,6 +33,10 @@ public interface TalentPoolService {
 
 	/* public CandidateInformation save(String encriptedPassword); */
 
-	public Talent_candidate_experience findByCandidateUniqeid(String candidateUniqeId);
+	public TalentCandidateExperience findByCandidateUniqeid(String candidateUniqeId);
+
+	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer);
+
+	public ArrayList<CandidateInformation> findByPassingYear(String passingYear);
 
 }

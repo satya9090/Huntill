@@ -29,7 +29,7 @@ import lombok.ToString;
 @Getter
 @Setter
 
-public class TalentQuestion {
+public class TalentQuestion { 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

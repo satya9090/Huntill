@@ -1,4 +1,4 @@
- package com.yotabytes.huntill.talentpool.controller;
+   package com.yotabytes.huntill.talentpool.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,15 +32,20 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
+import com.yotabytes.huntill.talentpool.domain.SearchCandidate;
+import com.yotabytes.huntill.talentpool.domain.TalentCandidateExperience;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
+import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswer;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
-import com.yotabytes.huntill.talentpool.domain.Talent_candidate_experience;
+
+
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 import com.yotabytes.huntill.talentpool.service.impl.TalentPoolServiceImpl;
 import com.yotabytes.huntill.talentpool.utils.MailUtil;
@@ -108,12 +113,12 @@ public class TalentPoolApplicationMainController {
 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public  @ResponseBody CandidateInformation login(@RequestBody CandidateInformation information,
+	public  @ResponseBody CandidateInformation login(@ModelAttribute CandidateInformation information,
 			HttpSession session) {
 		information.setIsActive("y");
 		CandidateInformation candidateInformation=talentPoolService.findByUserIdAndPasswordAndIsActive(information.getUserId(),encoder.getEncriptedPassword(information.getPassword()),information.getIsActive());
 		if(Objects.nonNull(candidateInformation)) {
-			System.out.println("SUCCESFULLY");
+			
 			return candidateInformation;
 		}else { 
 			
@@ -121,12 +126,12 @@ public class TalentPoolApplicationMainController {
 		} 
 		
 	}
-	// this method use to store candidateInformation in talent_candidate_information
+	  // this method use to store candidateInformation in talent_candidate_information
 
 	@RequestMapping(value = "/candidateInformation", method = RequestMethod.POST)
-	public @ResponseBody CandidateInformation saveCandidateInformation(@ModelAttribute CandidateInformation information,
+	 public @ResponseBody CandidateInformation saveCandidateInformation(@RequestBody CandidateInformation information,
 			HttpSession session,HttpServletRequest request) {
-		
+		 System.out.println("............"+information.getEmailId());
 		CandidateInformation checkUserName=new CandidateInformation();
 		CandidateInformation checkEmailId=new CandidateInformation();
 		
@@ -167,19 +172,19 @@ public class TalentPoolApplicationMainController {
 
 	// this method use to store candidateExperience in talent_candidate_experience
 
-	@RequestMapping(value = "/candidateExperience", method = RequestMethod.POST)
-	public @ResponseBody Talent_candidate_experience saveCandidateExperience(HttpSession session,
+	@RequestMapping(value = "/saveCandidateExperience", method = RequestMethod.POST)
+	public @ResponseBody TalentCandidateExperience saveCandidateExperience(HttpSession session,
 			HttpServletRequest request) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Talent_candidate_experience experience = new Talent_candidate_experience();
+		TalentCandidateExperience experience = new TalentCandidateExperience();
 
 		try {
 
 			experience.setCandidateUniqueId(session.getAttribute("uniqueId").toString());
-			experience.setProject_name(request.getParameter("project_name"));
-			experience.setStart_date(df.parse(request.getParameter("start_date")));
-			experience.setEnd_date(df.parse(request.getParameter("end_date")));
-			experience.setTechnology_used(request.getParameter("Technology_used"));
+			experience.setProjectName(request.getParameter("project_name"));
+			experience.setStartDate(df.parse(request.getParameter("start_date")));
+			experience.setEndDate(df.parse(request.getParameter("end_date")));
+			experience.setTechnologyUsed(request.getParameter("Technology_used"));
 			experience.setDescription(request.getParameter("description"));
 
 		} catch (Exception e) {
@@ -245,7 +250,7 @@ public class TalentPoolApplicationMainController {
 		
 		ArrayList list=new ArrayList();
 		CandidateInformation information=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
-		Talent_candidate_experience experience=talentPoolService.findByCandidateUniqeid(candidateUniqeId);
+		TalentCandidateExperience experience=talentPoolService.findByCandidateUniqeid(candidateUniqeId);
 		list.add(information);
 		list.add(experience);
 		session.setAttribute("CnadidateInfo", list);
@@ -253,28 +258,46 @@ public class TalentPoolApplicationMainController {
 	}
 	
 	@RequestMapping(value = "/candidateInformationUpdate", method = RequestMethod.PUT)
-	public @ResponseBody CandidateInformation updateCandidateInformation(@RequestBody CandidateInformation information,HttpSession session,HttpServletRequest request) {
+	public @ResponseBody CandidateInformation updateCandidateInformation(@ModelAttribute CandidateInformation information,HttpSession session,HttpServletRequest request) {
 		CandidateInformation information1=talentPoolService.findByCandidateUniqeId(session.getAttribute("candidateUniqeId").toString());
 		if(Objects.nonNull(information1))
 		{
-			information1.setFirst_name(information.getFirst_name());
-			information1.setMiddle_name(information.getMiddle_name());
-			information1.setLast_name(information.getLast_name());
+			information1.setFirstName(information.getFirstName());
+			information1.setMiddleName(information.getMiddleName());
+			information1.setLastName(information.getLastName());
 			information1.setEmailId(information.getEmailId());
-			information1.setAlternateEmail_id(information.getAlternateEmail_id());
-			information1.setContact_number(information.getContact_number());
+			information1.setAlternateEmailId(information.getAlternateEmailId());
+			information1.setContactNumber(information.getContactNumber());
 			information1.setGender(information.getGender());
 			information1.setGrade(information.getGrade());
-			information1.setInstitute_name(information.getInstitute_name());
+			information1.setInstituteName(information.getInstituteName());
 			information1.setIsActive(information.getIsActive());
 			information1.setIsEmployer(information.getIsEmployer());
 			information1.setIsVerify(information.getIsVerify());  
 			information1.setLocation(information.getLocation());
-			information1.setPassing_year(information.getPassing_year());
+			information1.setPassingYear(information.getPassingYear());
 			information1.setPassword(information.getPassword());
 			information1.setUserId(information.getUserId());
 			information1.setCandidate_id(information.getCandidate_id());
 			return talentPoolService.saveCandidateInformation(information1); 
+		}else {
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/CandidateExperienceUpdate", method = RequestMethod.PUT)
+	public @ResponseBody TalentCandidateExperience updateCandidateExperience(@ModelAttribute TalentCandidateExperience experience,HttpSession session,HttpServletRequest request) {
+		TalentCandidateExperience experience1=talentPoolService.findByCandidateUniqeid(session.getAttribute("candidateUniqeId").toString());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		if(Objects.nonNull(experience1))
+		{
+			experience1.setProjectName(experience.getProjectName());
+			experience1.setStartDate(experience.getStartDate());
+			experience1.setEndDate(experience.getEndDate());
+			experience1.setTechnologyUsed(experience.getTechnologyUsed());
+			experience1.setDescription(experience.getDescription());
+
+			return talentPoolService.saveCandidateExperience(experience1); 
 		}else {
 			return null;
 		}
@@ -292,6 +315,27 @@ public class TalentPoolApplicationMainController {
 			return null;
 		}
 		
+	}
+	
+	@RequestMapping(value = "/saveTalentQuestionAnswer", method = RequestMethod.POST)
+	public String saveQuestionAnswer(@RequestBody TalentQuestionAnswer answer,HttpSession session,HttpServletRequest request) {
+		answer=talentPoolService.saveQuestionAnswer(answer);
+		if(Objects.nonNull(answer))
+		{
+			return "saveTalentQuestionAnswer save sussesfully";
+		}else {
+			return null;
+		}
+		
+	}
+	
+	@RequestMapping(value = "/getCandidateAll", method = RequestMethod.POST) 
+	public List getCandidateAll(@RequestBody CandidateInformation information,HttpSession session) {
+		System.out.println("DATA::"+information.getPassingYear());
+		//session.setAttribute("candidateUniqeId", candidateUniqeId);
+		ArrayList<CandidateInformation> canf=talentPoolService.findByPassingYear(information.getPassingYear());
+		//CandidateInformation informat=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
+		return canf;
 	}
 	
 	}

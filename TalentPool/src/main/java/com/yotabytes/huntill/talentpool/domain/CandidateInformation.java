@@ -1,16 +1,19 @@
 package com.yotabytes.huntill.talentpool.domain;
 
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Generated;
-
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption.TalentQuestionOptionBuilder;
 
 import lombok.AllArgsConstructor;
@@ -21,8 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Entity (name= "talent_candidate_personal_details")
+@Entity(name = "talent_candidate_personal_details")
 
 @Builder
 @AllArgsConstructor
@@ -32,31 +34,31 @@ import lombok.ToString;
 @Getter
 @Setter
 
-  
 public class CandidateInformation {
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	private String candidateUniqeId = UUID.randomUUID().toString().toUpperCase();
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int candidate_id;
-	private String candidateUniqeId=UUID.randomUUID().toString().toUpperCase();
-	private String first_name;
-	private String middle_name;
-	private String last_name;
-	private String userId; 
+	private String firstName;
+	private String middleName;
+	private String lastName;
+	private String userId;
 	private String password;
 	private String location;
-	private Long contact_number;
+	private Long contactNumber;
 	private String emailId;
-	private String alternateEmail_id;
-	private String institute_name;
-	private String passing_year;
+	private String alternateEmailId;
+	private String instituteName;
+	private String passingYear;
 	private String grade;
 	private String gender;
 	private String isEmployer;
- @Column(columnDefinition = "varchar(10) default 'N'")
-	 private String isVerify;
- @Column(columnDefinition = "varchar(10) default 'Y'")
-	private String isActive;
-	
+	private String isVerify = "N";
+	private String isActive = "Y";
+	  @OneToMany(cascade=CascadeType.ALL)
+	  @JoinColumn(name="candidateUniqueId")
+	  private Set<TalentCandidateExperience> talentCandidateExperience;
+	  
+	  
 
 }

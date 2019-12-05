@@ -150,9 +150,9 @@ public class MailUtil {
 				+ "<th>Name</th>"
 				+ "<th>Email-Id</th>"
 				+ "<th>Contact-no</th>"
-						+ "<tr>" + "<td>" + information.getFirst_name()+information.getMiddle_name()+""+information.getLast_name() 
+						+ "<tr>" + "<td>" + information.getFirstName()+information.getMiddleName()+""+information.getLastName() 
 						+ "</td>"  + "<td>" + information.getEmailId() 
-						+ "</td>" + "<td>"+ information.getContact_number()
+						+ "</td>" + "<td>"+ information.getContactNumber()
 						+ "</td>"+ "</tr>"  + "</table>" 
 						+ "</b><br/><br/>Message: <b>"
 						+ "</b><br/><br/-----<br/><br/>"

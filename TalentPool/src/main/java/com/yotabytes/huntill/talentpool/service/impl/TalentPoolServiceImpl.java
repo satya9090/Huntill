@@ -1,5 +1,6 @@
 package com.yotabytes.huntill.talentpool.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.yotabytes.huntill.talentpool.domain.*;
 import com.yotabytes.huntill.talentpool.repository.CandidateExperienceRepository;
 import com.yotabytes.huntill.talentpool.repository.CandidateInformationRepository;
+import com.yotabytes.huntill.talentpool.repository.SearchCandidateRepository;
+import com.yotabytes.huntill.talentpool.repository.TalentQuestionAnswerRepository;
 import com.yotabytes.huntill.talentpool.repository.TalentQuestionRepository;
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 
@@ -24,6 +27,13 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	@Autowired
 	private CandidateExperienceRepository candidateExperienceRepository;
 	
+	@Autowired(required =true)
+	private TalentQuestionAnswerRepository talentQuestionAnswerRepository;
+	
+	
+	@Autowired(required =true)
+	private SearchCandidateRepository searchCandidateRepository;
+	
 	
 	public List<TalentQuestion> findAll() {
 		return talentQuestionRepository.findAll();
@@ -33,7 +43,7 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		return candidateInformationRepository.save(information);
 	}
 	
-	public Talent_candidate_experience saveCandidateExperience(Talent_candidate_experience experience) {
+	public TalentCandidateExperience saveCandidateExperience(TalentCandidateExperience experience) {
 		return candidateExperienceRepository.save(experience);
 	}
 	
@@ -58,11 +68,22 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		return candidateInformationRepository.findByCandidateUniqeId(candidateUniqeId);
 	}
 	
-	/*
+	   /*
 	 * public CandidateInformation save(String encriptedPassword) { return null; }
 	 */
-	public Talent_candidate_experience findByCandidateUniqeid(String candidateUniqeId)
+	public TalentCandidateExperience findByCandidateUniqeid(String candidateUniqeId)
 	{
 		return candidateExperienceRepository.findBycandidateUniqueId(candidateUniqeId);
+	}
+	
+	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer)
+	{
+		return talentQuestionAnswerRepository.save(answer);
+	}
+
+	
+	public ArrayList<CandidateInformation> findByPassingYear(String passingYear) {
+		System.out.println("service:"+passingYear);
+		return candidateInformationRepository.findByPassingYear(passingYear);
 	}
 }
