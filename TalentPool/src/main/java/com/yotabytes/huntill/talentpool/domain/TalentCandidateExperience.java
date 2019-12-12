@@ -34,6 +34,6 @@ public class TalentCandidateExperience {
 	private String projectName;
 	private Date startDate;
 	private Date endDate;
-	private String TechnologyUsed;
+	private String technologyUsed;
 	private String description;
 }

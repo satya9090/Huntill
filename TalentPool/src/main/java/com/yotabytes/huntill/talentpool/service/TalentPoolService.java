@@ -37,6 +37,6 @@ public interface TalentPoolService {
 
 	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer);
 
-	public ArrayList<CandidateInformation> findByPassingYear(String passingYear);
+	public ArrayList<CandidateInformation> findByCriteria(String passingYear, String instituteName,String technologyUsed);
 
 }

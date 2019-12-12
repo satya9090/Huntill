@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.mail.Session;
@@ -132,6 +133,7 @@ public class TalentPoolApplicationMainController {
 	 public @ResponseBody CandidateInformation saveCandidateInformation(@RequestBody CandidateInformation information,
 			HttpSession session,HttpServletRequest request) {
 		 System.out.println("............"+information.getEmailId());
+		 information.setCandidateUniqeId(UUID.randomUUID().toString().toUpperCase());
 		CandidateInformation checkUserName=new CandidateInformation();
 		CandidateInformation checkEmailId=new CandidateInformation();
 		
@@ -172,10 +174,34 @@ public class TalentPoolApplicationMainController {
 
 	// this method use to store candidateExperience in talent_candidate_experience
 
+	/*
+	 * @RequestMapping(value = "/saveCandidateExperience", method =
+	 * RequestMethod.POST) public @ResponseBody TalentCandidateExperience
+	 * saveCandidateExperience(HttpSession session, HttpServletRequest request) {
+	 * SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	 * TalentCandidateExperience experience = new TalentCandidateExperience();
+	 * 
+	 * try {
+	 * 
+	 * experience.setCandidateUniqueId(session.getAttribute("uniqueId").toString());
+	 * experience.setProjectName(request.getParameter("project_name"));
+	 * experience.setStartDate(df.parse(request.getParameter("start_date")));
+	 * experience.setEndDate(df.parse(request.getParameter("end_date")));
+	 * experience.setTechnologyUsed(request.getParameter("Technology_used"));
+	 * experience.setDescription(request.getParameter("description"));
+	 * 
+	 * } catch (Exception e) { e.getMessage(); }
+	 * 
+	 * return talentPoolService.saveCandidateExperience(experience);
+	 * 
+	 * }
+	 */
+	//POSTMAN
 	@RequestMapping(value = "/saveCandidateExperience", method = RequestMethod.POST)
-	public @ResponseBody TalentCandidateExperience saveCandidateExperience(HttpSession session,
+	public @ResponseBody TalentCandidateExperience saveCandidateExperience(@RequestBody TalentCandidateExperience exp, HttpSession session,
 			HttpServletRequest request) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
 		TalentCandidateExperience experience = new TalentCandidateExperience();
 
 		try {
@@ -191,7 +217,7 @@ public class TalentPoolApplicationMainController {
 			e.getMessage();
 		}
 
-		return talentPoolService.saveCandidateExperience(experience);
+		return talentPoolService.saveCandidateExperience(exp);
 
 	}
 	
@@ -278,7 +304,7 @@ public class TalentPoolApplicationMainController {
 			information1.setPassingYear(information.getPassingYear());
 			information1.setPassword(information.getPassword());
 			information1.setUserId(information.getUserId());
-			information1.setCandidate_id(information.getCandidate_id());
+			//information1.setCandidate_id(information.getCandidate_id());
 			return talentPoolService.saveCandidateInformation(information1); 
 		}else {
 			return null;
@@ -330,10 +356,26 @@ public class TalentPoolApplicationMainController {
 	}
 	
 	@RequestMapping(value = "/getCandidateAll", method = RequestMethod.POST) 
-	public List getCandidateAll(@RequestBody CandidateInformation information,HttpSession session) {
+	public List getCandidateAll(@RequestBody CandidateInformation information,HttpSession session){
+		
 		System.out.println("DATA::"+information.getPassingYear());
+		List<TalentCandidateExperience> exe=information.getTalentCandidateExperience();
+		TalentCandidateExperience ta=new TalentCandidateExperience();
+		try {
+		//System.out.println("size:"+exe.size());
+		/* if(Objects.requireNonNull(exe) != null) { */
+		if(exe.size()>0) {
+		  for(int i=0;i<exe.size();i++) {
+		  ta.setTechnologyUsed(exe.get(i).getTechnologyUsed());
+		  System.out.println(exe.get(i).getTechnologyUsed()); 
+		  }
+		}
+		}
+		catch(NullPointerException ne) {
+			System.out.println(ne.getMessage());
+		}
 		//session.setAttribute("candidateUniqeId", candidateUniqeId);
-		ArrayList<CandidateInformation> canf=talentPoolService.findByPassingYear(information.getPassingYear());
+		ArrayList<CandidateInformation> canf=talentPoolService.findByCriteria(information.getPassingYear(),information.getInstituteName(),ta.getTechnologyUsed());
 		//CandidateInformation informat=talentPoolService.findByCandidateUniqeId(candidateUniqeId);
 		return canf;
 	}

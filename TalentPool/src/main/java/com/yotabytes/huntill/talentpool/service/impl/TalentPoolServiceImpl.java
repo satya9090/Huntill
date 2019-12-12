@@ -1,9 +1,21 @@
 package com.yotabytes.huntill.talentpool.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -82,8 +94,46 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	}
 
 	
-	public ArrayList<CandidateInformation> findByPassingYear(String passingYear) {
+	public ArrayList<CandidateInformation> findByCriteria( String passingYear,String instituteName,String technologyUsed) {
 		System.out.println("service:"+passingYear);
-		return candidateInformationRepository.findByPassingYear(passingYear);
+		return candidateInformationRepository.findAll(new Specification<CandidateInformation>() {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public Predicate toPredicate(Root<CandidateInformation> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                  List<Predicate> predicates = new ArrayList<>();
+                 
+                  CriteriaQuery<TalentCandidateExperience> query1 = criteriaBuilder.createQuery(TalentCandidateExperience.class);
+                if(passingYear!=null) {
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("passingYear"), passingYear)));
+                }
+                if(instituteName!=null){
+                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("instituteName"), instituteName)));
+                }
+                //ListJoin<CandidateInformation, TalentCandidateExperience> phoneJoin = root.join(CandidateInformation.talentCandidateExperience);
+        
+               //Path<Object> orderItems = root.get("talentCandidateExperience");
+				
+				Join<CandidateInformation, TalentCandidateExperience> talent = root.join("talentCandidateExperience");
+				/*
+				 * if (technologyUsed != null) { predicates.add(
+				 * query1.select(talent).where(criteriaBuilder.equal(talent.get("technologyUsed"
+				 * ),"technologyUsed"))); }
+				 */
+			
+			
+				if (technologyUsed != null) {
+					predicates.add(
+							criteriaBuilder.and(criteriaBuilder.equal(talent.get("technologyUsed"), technologyUsed)));
+				}
+				  
+				  System.out.println("predicates"+predicates.toString());
+				 
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        });
 	}
 }

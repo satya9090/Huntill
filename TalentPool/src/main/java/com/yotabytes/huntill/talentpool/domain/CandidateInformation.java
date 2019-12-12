@@ -1,5 +1,6 @@
 package com.yotabytes.huntill.talentpool.domain;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption.TalentQuestionOptionBuilder;
 
 import lombok.AllArgsConstructor;
@@ -37,8 +40,6 @@ import lombok.ToString;
 public class CandidateInformation {
 	@Id
 	private String candidateUniqeId = UUID.randomUUID().toString().toUpperCase();
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int candidate_id;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -56,8 +57,11 @@ public class CandidateInformation {
 	private String isVerify = "N";
 	private String isActive = "Y";
 	  @OneToMany(cascade=CascadeType.ALL)
-	  @JoinColumn(name="candidateUniqueId")
-	  private Set<TalentCandidateExperience> talentCandidateExperience;
+	  @JoinColumn(name = "candidateUniqueId")
+	private List<TalentCandidateExperience> talentCandidateExperience;
+	  @OneToMany(cascade=CascadeType.ALL)
+	  @JoinColumn(name = "candidateUniqueId")
+    private Set<TalentQuestionAnswer> talentQuestionAnswer;
 	  
 	  
 

@@ -27,7 +27,7 @@ public class TalentQuestionAnswer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String candidateUniqueid;
+	private String candidateUniqueId;
 	private Integer questionId;
 	private String questionAnswer;
 	private String answerValue;

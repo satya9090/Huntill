@@ -1,9 +1,15 @@
 package com.yotabytes.huntill.talentpool.domain;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.yotabytes.huntill.talentpool.domain.CandidateInformation.CandidateInformationBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +18,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+@Entity(name = "talent_candidate_programm")
 
-@Entity(name = "talent_question_answer")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,14 +27,11 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-
-public class Talent_Question_answer {
+public class TalentCandidateProgrammerSkills {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String candidateUniqueid;
-	private Integer questionId;
-	private String questionAnswer;
-	
-	
+	private String candidateUniqueId;
+	private String projectName;
+	private Date startDate;
 }
