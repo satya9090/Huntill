@@ -1,11 +1,11 @@
 package com.yotabytes.huntill.talentpool.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-@Entity(name = "talent_question_answer")
+
+@Entity (name= "TalentLocationQuestion")
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,31 +24,28 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class TalentQuestionAnswer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String candidateUniqueid;
-	private Integer questionId;
-	private String questionAnswer;
-	private String answerValue;
-	private String createdBy;
-	private String createdDate;
-	private String updateBy;
-	private String updateDate;
+public class TalentLocationQuestion {
 	
-	public int getId() {
-		return id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int locationQuestionId;
+	private int locationId;
+	private Integer questionId;
+	private String createdBy;
+	private Date createdDate;
+	private String updateBy;
+	private Date updateDate;
+	public int getLocationQuestionId() {
+		return locationQuestionId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setLocationQuestionId(int locationQuestionId) {
+		this.locationQuestionId = locationQuestionId;
 	}
-	public String getCandidateUniqueid() {
-		return candidateUniqueid;
+	public int getLocationId() {
+		return locationId;
 	}
-	public void setCandidateUniqueid(String candidateUniqueid) {
-		this.candidateUniqueid = candidateUniqueid;
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
 	}
 	public Integer getQuestionId() {
 		return questionId;
@@ -54,28 +53,16 @@ public class TalentQuestionAnswer {
 	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
-	public String getQuestionAnswer() {
-		return questionAnswer;
-	}
-	public void setQuestionAnswer(String questionAnswer) {
-		this.questionAnswer = questionAnswer;
-	}
-	public String getAnswerValue() {
-		return answerValue;
-	}
-	public void setAnswerValue(String answerValue) {
-		this.answerValue = answerValue;
-	}
 	public String getCreatedBy() {
 		return createdBy;
 	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 	public String getUpdateBy() {
@@ -84,12 +71,11 @@ public class TalentQuestionAnswer {
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
-	public String getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
-	public void setUpdateDate(String updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
-	
+
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.sun.research.ws.wadl.Request;
-import com.yotabytes.huntill.talentpool.domain.CandidateInformation;
+import com.yotabytes.huntill.talentpool.domain.TalentCandidateInformation;
 
 public class MailUtil {
 
@@ -42,7 +42,7 @@ public class MailUtil {
 				Session session = Session.getInstance(props,
 						new javax.mail.Authenticator() {
 							protected PasswordAuthentication getPasswordAuthentication() {
-								return new PasswordAuthentication(username, 
+								return new PasswordAuthentication(username,
 										password);
 							}
 						});
@@ -129,7 +129,7 @@ public class MailUtil {
 	}
 	public static void mailSendUtil(HttpSession session,HttpServletRequest request)
 	{
-		CandidateInformation information=(CandidateInformation)session.getAttribute("information");
+		TalentCandidateInformation information=(TalentCandidateInformation)session.getAttribute("information");
 		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
 				"TalentPool - Registration",
 				"Hello,<br/><br/> Registration sucessfully <br/>"
@@ -161,7 +161,7 @@ public class MailUtil {
 	
 	public static void mailSendToResetPassword(HttpSession session,HttpServletRequest request)
 	{
-		CandidateInformation information=(CandidateInformation)session.getAttribute("information");
+		TalentCandidateInformation information=(TalentCandidateInformation)session.getAttribute("information");
 		session.setAttribute("candidate_uniqueId", information.getCandidateUniqeId());
 		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
 				"TalentPool - ResetPassword",

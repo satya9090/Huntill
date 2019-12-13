@@ -14,8 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-@Entity (name= "talent_candidate_ProgrammerSkills")
+@Entity (name= "talent_candidate_Address")
 
 @Builder
 @AllArgsConstructor
@@ -24,63 +23,56 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class TalentCandidateProgrammerSkills {
+public class TalentCandidateAddress {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int skillId;
+	private int addressId;
 	private String candidateUniqeId;
-	private String programingLanguage;
-	private String database;
-	private String frontEnd;
-	private String tools;
-	private String IDE;
-	private String operatingSystem;
+	private String addressType;
+	private String coutry;
+	private String state;
+	private String city;
+	private Integer pincode;
 	private String createdBy;
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
 	
-	public int getSkillId() {
-		return skillId;
+	public int getAddressId() {
+		return addressId;
 	}
-	public void setSkillId(int skillId) {
-		this.skillId = skillId;
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
-	public String getProgramingLanguage() {
-		return programingLanguage;
+	public String getAddressType() {
+		return addressType;
 	}
-	public void setProgramingLanguage(String programingLanguage) {
-		this.programingLanguage = programingLanguage;
+	public void setAddressType(String addressType) {
+		this.addressType = addressType;
 	}
-	public String getDatabase() {
-		return database;
+	public String getCoutry() {
+		return coutry;
 	}
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setCoutry(String coutry) {
+		this.coutry = coutry;
 	}
-	public String getFrontEnd() {
-		return frontEnd;
+	public String getState() {
+		return state;
 	}
-	public void setFrontEnd(String frontEnd) {
-		this.frontEnd = frontEnd;
+	public void setState(String state) {
+		this.state = state;
 	}
-	public String getTools() {
-		return tools;
+	public String getCity() {
+		return city;
 	}
-	public void setTools(String tools) {
-		this.tools = tools;
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getIDE() {
-		return IDE;
+	public Integer getPincode() {
+		return pincode;
 	}
-	public void setIDE(String iDE) {
-		IDE = iDE;
-	}
-	public String getOperatingSystem() {
-		return operatingSystem;
-	}
-	public void setOperatingSystem(String operatingSystem) {
-		this.operatingSystem = operatingSystem;
+	public void setPincode(Integer pincode) {
+		this.pincode = pincode;
 	}
 	public String getCreatedBy() {
 		return createdBy;

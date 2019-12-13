@@ -34,10 +34,13 @@
 
 		<div class="col-sm-9">
 			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#home">Menu 1</a></li>
-				<li><a data-toggle="tab" href="#messages">Menu 2</a></li>
-				<li><a data-toggle="tab" href="#settings">Menu 3</a></li>
-				<li><a data-toggle="tab" href="#menu4">Menu 4</a></li>
+				<li class="active"><a data-toggle="tab" href="#home">Registration</a></li>
+				<li><a data-toggle="tab" href="#personalDetails">personalDetails</a></li>
+				<li><a data-toggle="tab" href="#messages">questionAnswer</a></li>
+				<li><a data-toggle="tab" href="#settings">projectDetails</a></li>
+				<li><a data-toggle="tab" href="#addressDetails">addressDetails</a></li>
+				<li><a data-toggle="tab" href="#EducationDetails">EducationDetails</a></li>
+				<li><a data-toggle="tab" href="#menu4">Vedio/photo</a></li>
 				<li><a href="loginPage">LOGIN</a></li>
 			</ul>
 
@@ -45,14 +48,14 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
 					<hr>
-					<form class="form" action="candidateInformation" method="post"
+					<form class="form" action="candidateRegistration" method="post"
 						id="registrationForm">
 						<div class="form-group">
 
 							<div class="col-xs-6">
 								<label for="first_name"><h4>First name</h4></label> <input
-									type="text" class="form-control" name="first_name"
-									id="first_name" placeholder="first name"
+									type="text" class="form-control" name="firstName"
+									id="firstName" placeholder="first name"
 									title="enter your first name if any.">
 							</div>
 						</div>
@@ -60,7 +63,7 @@
 
 							<div class="col-xs-6">
 								<label for="middle_name"><h4>middle name</h4></label> <input
-									type="text" class="form-control" name="middle_name"
+									type="text" class="form-control" name="middleName"
 									id="middle_name" placeholder="last name"
 									title="enter your middle_name if any.">
 							</div>
@@ -69,19 +72,17 @@
 
 							<div class="col-xs-6">
 								<label for="last_name"><h4>Last name</h4></label> <input
-									type="text" class="form-control" name="last_name"
-									id="last_name" placeholder="last name"
-									title="enter your last name if any.">
+									type="text" class="form-control" name="lastName" id="last_name"
+									placeholder="last name" title="enter your last name if any.">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 
 							<div class="col-xs-6">
 								<label for="last_name"><h4>User Id</h4></label> <input
-									type="text" class="form-control" name="userId"
-									id="userId" placeholder="userId"
-									title="enter your userId if any.">
+									type="text" class="form-control" name="userName" id="userName"
+									placeholder="userId" title="enter your userId if any.">
 							</div>
 						</div>
 						<div class="form-group">
@@ -102,12 +103,12 @@
 									placeholder="you@email.com" title="enter your email.">
 							</div>
 						</div>
-						
-						<div class="form-group">
+
+						<!-- <div class="form-group">
 
 							<div class="col-xs-6">
 								<label for="alternate_email_id"><h4> Alternate Email id</h4></label> <input type="email"
-									class="form-control" name="alternateEmail_id" id="alternateEmail_id"
+									class="form-control" name="alternateEmailId" id="alternateEmailId"
 									placeholder="you@email.com" title="enter your alternate_email_id">
 							</div>
 						</div>
@@ -118,23 +119,23 @@
 									class="form-control" name="location" id="location"
 									placeholder="somewhere" title="enter a location">
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-group">
 							<div class="col-xs-6">
-								<label for="mobile"><h4>Contact_number</h4></label> <input type="text"
-									class="form-control" name="contact_number" id="mobile"
-									placeholder="enter mobile number"
+								<label for="mobile"><h4>Contact_number</h4></label> <input
+									type="text" class="form-control" name="contactNumber"
+									id="mobile" placeholder="enter mobile number"
 									title="enter your mobile number if any.">
 							</div>
 						</div>
 
-						<div class="form-group">
+						<!-- <div class="form-group">
 
 							<div class="col-xs-6">
 								<label for="collageName"><h4>institute name</h4></label> <input
-									type="text" class="form-control" id="collage_name"
-									name="institute_name" placeholder="collage_name"
+									type="text" class="form-control" id="instituteName"
+									name="instituteName" placeholder="collage_name"
 									title="enter your collage_name">
 							</div>
 						</div>
@@ -143,8 +144,8 @@
 
 							<div class="col-xs-6">
 								<label for="passing_year"><h4>Passing Year</h4></label> <input
-									type="text" class="form-control" id="passing_year"
-									name="passing_year" placeholder="passing_year"
+									type="text" class="form-control" id="passingYear"
+									name="passingYear" placeholder="passing_year"
 									title="enter your passing_year">
 							</div>
 						</div>
@@ -170,17 +171,16 @@
 
 								</select>
 							</div>
-						</div><br>
+						</div><br> -->
 						<div class="form-group">
 
-							<div class="col-xs-6"> 
-								<label for="passing_year"><h4>isEmployer</h4></label>
-								 <select class="form-control buttom"
-									name="isEmployer">
+							<div class="col-xs-6">
+								<label for="passing_year"><h4>isEmployer</h4></label> <select
+									class="form-control buttom" name="isEmployer">
 
 									<option value="Y">Yes</option>
 									<option value="N">No</option>
-									
+
 
 								</select>
 							</div>
@@ -200,6 +200,87 @@
 					<hr>
 
 				</div>
+
+				<div class="tab-pane" id="personalDetails">
+
+
+
+					<form class="form" action="saveCandidateProfileDetails" method="post"
+						id="registrationForm">
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="passing_year"><h4>Gender</h4></label> <select
+									class="form-control buttom" name="gender">
+
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
+									<option value="Other">Other</option>
+
+								</select>
+							</div>
+						</div>
+						<br>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="alternate_email_id"><h4>Alternate Email
+										id</h4></label> <input type="email" class="form-control"
+									name="alternateEmailId" id="alternateEmailId"
+									placeholder="you@email.com"
+									title="enter your alternate_email_id">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="end_date"><h4>marital status</h4></label> <input
+									type="text" class="form-control" name="maritalStatus"
+									id="maritalStatus" placeholder="maritalStatus"
+									title="enter your maritalStatus">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label for="mobile"><h4>Nationality</h4></label> <input
+									type="text" class="form-control" name="nationality"
+									id="Nationality" placeholder="enter Nationality"
+									title="enter your Nationality if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>bloodGroup</h4></label> <input
+									type="text" class="form-control" name="bloodGroup"
+									id="bloodGroup" placeholder="bloodGroup"
+									title="enter your bloodGroup">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>dateOfBirth</h4></label> <input
+									type="date" class="form-control" name="dateOfBirth"
+									id="dateOfBirth" placeholder="dateOfBirth"
+									title="enter your dateOfBirth">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12">
+								<br>
+								<button class="btn btn-lg btn-success pull-right" type="submit">
+									<i class="glyphicon glyphicon-ok-sign"></i> Save
+								</button>
+
+							</div>
+						</div>
+					</form>
+
+
+				</div>
 				<!--/tab-pane-->
 				<div class="tab-pane" id="messages">
 
@@ -210,7 +291,7 @@
 					<form class="form" action="saveQuestionAnswer" method="post"
 						id="registrationForm">
 
-						<div class="form-group"> 
+						<div class="form-group">
 							<div class="col-xs-6">
 
 								What are you looking for ?<input type="hidden"
@@ -323,14 +404,14 @@
 
 
 					<hr>
-					<form class="form" action="candidateExperience" method="post"
-						id="registrationForm">
+					<form class="form" action="saveCandidateProjectDetails"
+						method="post" id="registrationForm">
 						<div class="form-group">
 
 							<div class="col-xs-6">
 								<label for="Project Name"><h4>Project Name</h4></label> <input
-									type="text" class="form-control" name="project_name"
-									id="project_name" placeholder="Project Name"
+									type="text" class="form-control" name="projectName"
+									id="projectName" placeholder="Project Name"
 									title="enter your Project Name if any.">
 							</div>
 						</div>
@@ -338,8 +419,8 @@
 
 							<div class="col-xs-6">
 								<label for="last_name"><h4>start date</h4></label> <input
-									type="date" class="form-control" name="start_date"
-									id="start_date" placeholder="start_date"
+									type="date" class="form-control" name="startDate"
+									id="startDate" placeholder="start_date"
 									title="enter your start date.">
 							</div>
 						</div>
@@ -348,7 +429,7 @@
 
 							<div class="col-xs-6">
 								<label for="end_date"><h4>end date</h4></label> <input
-									type="date" class="form-control" name="end_date" id="end_date"
+									type="date" class="form-control" name="endDate" id="endDate"
 									placeholder="end_date" title="enter your end_date">
 							</div>
 						</div>
@@ -356,18 +437,111 @@
 						<div class="form-group">
 							<div class="col-xs-6">
 								<label for="mobile"><h4>Technology used</h4></label> <input
-									type="text" class="form-control" name="Technology_used"
-									id="Technology" placeholder="enter Technology"
+									type="text" class="form-control" name="TechnologyUsed"
+									id="TechnologyUsed" placeholder="enter Technology"
 									title="enter your Technology if any.">
 							</div>
 						</div>
 						<div class="form-group">
 
 							<div class="col-xs-6">
-								<label for="description"><h4>description</h4></label> <input
-									type="text" class="form-control" name="description"
-									id="description" placeholder="description"
-									title="enter your description">
+								<label for="description"><h4>projectDetails</h4></label> <input
+									type="text" class="form-control" name="projectDetails"
+									id="projectDetails" placeholder="projectDetails"
+									title="enter your projectDetails">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>role</h4></label> <input
+									type="text" class="form-control" name="role"
+									id="role" placeholder="role"
+									title="enter your role">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>roleDescription</h4></label> <input
+									type="text" class="form-control" name="roleDescription"
+									id="projectDetails" placeholder="roleDescription"
+									title="enter your roleDescription">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>companyName</h4></label> <input
+									type="text" class="form-control" name="companyName"
+									id="companyName" placeholder="companyName"
+									title="enter your companyName">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12">
+								<br>
+								<button class="btn btn-lg btn-success pull-right" type="submit">
+									<i class="glyphicon glyphicon-ok-sign"></i> Save
+								</button>
+
+							</div>
+						</div>
+					</form>
+
+
+				</div>
+
+				<div class="tab-pane" id="addressDetails">
+
+
+					<hr>
+					<form class="form" action="saveCandidateAddressDetails" method="post"
+						id="registrationForm">
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="Project Name"><h4>addressType</h4></label> <input
+									type="text" class="form-control" name="addressType"
+									id="addressType" placeholder="addressType Name"
+									title="enter your addressType Name if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>country</h4></label> <input
+									type="text" class="form-control" name="country"
+									id="startDate" placeholder="country"
+									title="enter your country .">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="end_date"><h4>state</h4></label> <input
+									type="text" class="form-control" name="state" id="state"
+									placeholder="state" title="enter your state">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label for="mobile"><h4>city</h4></label> <input
+									type="text" class="form-control" name="city"
+									id="city" placeholder="enter city"
+									title="enter your city if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>pincode</h4></label> <input
+									type="text" class="form-control" name="pincode"
+									id="pincode" placeholder="pincode"
+									title="enter your pincode">
 							</div>
 						</div>
 
@@ -384,7 +558,85 @@
 
 
 				</div>
+				<div class="tab-pane" id="EducationDetails">
 
+
+					<hr>
+					<form class="form" action="saveCandidateEducationDetails" method="post"
+						id="registrationForm">
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="Project Name"><h4>qualification</h4></label> <input
+									type="text" class="form-control" name="qualification"
+									id="qualification" placeholder="qualification Name"
+									title="enter your qualification Name if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>instituteName</h4></label> <input
+									type="text" class="form-control" name="instituteName"
+									id="instituteName" placeholder="instituteName"
+									title="enter your instituteName ">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="end_date"><h4>passingYear</h4></label> <input
+									type="text" class="form-control" name="passingYear" id="passingYear"
+									placeholder="passingYear" title="enter your passingYear">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label for="mobile"><h4>specification</h4></label> <input
+									type="text" class="form-control" name="specification"
+									id="specification" placeholder="enter specification"
+									title="enter your specification if any.">
+							</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="description"><h4>percentage</h4></label> <input
+									type="text" class="form-control" name="percentage"
+									id="percentage" placeholder="percentage"
+									title="enter your percentage">
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="passing_year"><h4>courseType</h4></label> <select
+									class="form-control buttom" name="courseType">
+
+									<option value="fullTime">fullTime</option>
+									<option value="partTime">partTime</option>
+									<option value="corresponds">corresponds</option>
+
+
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12">
+								<br>
+								<button class="btn btn-lg btn-success pull-right" type="submit">
+									<i class="glyphicon glyphicon-ok-sign"></i> Save
+								</button>
+
+							</div>
+						</div>
+					</form>
+
+
+				</div>
 				<div class="tab-pane" id="menu4">
 
 

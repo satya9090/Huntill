@@ -14,9 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-@Entity (name= "talent_candidate_ProgrammerSkills")
-
+@Entity (name= "talent_candidate_EducationDetails")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,63 +22,63 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class TalentCandidateProgrammerSkills {
+public class TalentEducationDetails {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int skillId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	private String candidateUniqeId;
-	private String programingLanguage;
-	private String database;
-	private String frontEnd;
-	private String tools;
-	private String IDE;
-	private String operatingSystem;
+	private String qualification;
+	private String instituteName;
+	private String passingYear;
+	private String specification;
+	private String percentage;
+	private String courseType;
 	private String createdBy;
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
-	
-	public int getSkillId() {
-		return skillId;
+	public int getId() {
+		return id;
 	}
-	public void setSkillId(int skillId) {
-		this.skillId = skillId;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getProgramingLanguage() {
-		return programingLanguage;
+	public String getQualification() {
+		return qualification;
 	}
-	public void setProgramingLanguage(String programingLanguage) {
-		this.programingLanguage = programingLanguage;
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
 	}
-	public String getDatabase() {
-		return database;
+	public String getInstituteName() {
+		return instituteName;
 	}
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setInstituteName(String instituteName) {
+		this.instituteName = instituteName;
 	}
-	public String getFrontEnd() {
-		return frontEnd;
+	public String getPassingYear() {
+		return passingYear;
 	}
-	public void setFrontEnd(String frontEnd) {
-		this.frontEnd = frontEnd;
+	public void setPassingYear(String passingYear) {
+		this.passingYear = passingYear;
 	}
-	public String getTools() {
-		return tools;
+	public String getSpecification() {
+		return specification;
 	}
-	public void setTools(String tools) {
-		this.tools = tools;
+	public void setSpecification(String specification) {
+		this.specification = specification;
 	}
-	public String getIDE() {
-		return IDE;
+	public String getPercentage() {
+		return percentage;
 	}
-	public void setIDE(String iDE) {
-		IDE = iDE;
+	public void setPercentage(String percentage) {
+		this.percentage = percentage;
 	}
-	public String getOperatingSystem() {
-		return operatingSystem;
+	public String getCourseType() {
+		return courseType;
 	}
-	public void setOperatingSystem(String operatingSystem) {
-		this.operatingSystem = operatingSystem;
+	public void setCourseType(String courseType) {
+		this.courseType = courseType;
 	}
 	public String getCreatedBy() {
 		return createdBy;
