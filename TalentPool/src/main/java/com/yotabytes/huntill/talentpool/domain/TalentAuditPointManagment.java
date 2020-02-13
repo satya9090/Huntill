@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity (name= "TalentLocation")
+@Entity (name= "talent_Audit_PointManagment")
 
 @Builder
 @AllArgsConstructor
@@ -24,41 +26,55 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class TalentLocation {
+public class TalentAuditPointManagment {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int locationId;
-	private String country;
-	private String state;
-	private String city;
+	private int auditPointId;
+	private String candidateUniqueId;  
+	private int addPoint;
+	private int updatePoint;
+	private int removePoint;
+	private String transactionType;
 	private String createdBy;
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
-	public int getLocationId() {
-		return locationId;
+	public int getAuditPointId() {
+		return auditPointId;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setAuditPointId(int auditPointId) {
+		this.auditPointId = auditPointId;
 	}
-	public String getCountry() {
-		return country;
+	public String getCandidateUniqueId() {
+		return candidateUniqueId;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCandidateUniqueId(String candidateUniqueId) {
+		this.candidateUniqueId = candidateUniqueId;
 	}
-	public String getState() {
-		return state;
+	public int getAddPoint() {
+		return addPoint;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setAddPoint(int addPoint) {
+		this.addPoint = addPoint;
 	}
-	public String getCity() {
-		return city;
+	public int getUpdatePoint() {
+		return updatePoint;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setUpdatePoint(int updatePoint) {
+		this.updatePoint = updatePoint;
+	}
+	public int getRemovePoint() {
+		return removePoint;
+	}
+	public void setRemovePoint(int removePoint) {
+		this.removePoint = removePoint;
+	}
+	public String getTransactionType() {
+		return transactionType;
+	}
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
 	}
 	public String getCreatedBy() {
 		return createdBy;
@@ -84,4 +100,5 @@ public class TalentLocation {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	
 }

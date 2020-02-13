@@ -9,6 +9,7 @@ import com.yotabytes.huntill.talentpool.domain.TalentCandidateInformation;
 import com.yotabytes.huntill.talentpool.domain.TalentCandidateProjectDetails;
 
 import com.yotabytes.huntill.talentpool.domain.TalentEducationDetails;
+import com.yotabytes.huntill.talentpool.domain.TalentProfessionalDetails;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswer;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
@@ -73,6 +74,9 @@ public interface TalentPoolService {
 	public List<TalentCandidateProjectDetails> find();
 
 	public List<TalentCandidateInformation> findAllUser();
+	
+	
+	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(List<TalentProfessionalDetails> talentExperience);
 
 	/*public List<TalentCandidateSearch> findBySkillsAndCurrentLocationAndExperience(String skills, String currentLocation,
 			String experience);*/

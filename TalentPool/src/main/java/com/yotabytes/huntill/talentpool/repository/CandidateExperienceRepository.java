@@ -2,10 +2,8 @@ package com.yotabytes.huntill.talentpool.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.yotabytes.huntill.talentpool.domain.TalentCandidateExperience;;
+import com.yotabytes.huntill.talentpool.domain.TalentProfessionalDetails;
 
-public interface CandidateExperienceRepository extends CrudRepository<TalentCandidateExperience, Integer>{
-
-	TalentCandidateExperience findBycandidateUniqueId(String candidateUniqeId);
+public interface CandidateExperienceRepository extends CrudRepository<TalentProfessionalDetails, Integer>{
 
 }

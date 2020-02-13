@@ -1,0 +1,16 @@
+----------------------------------------------------------------
+Mon Feb 10 15:53:07 IST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0170-2e9f-c2da-000015655500 
+on database directory memory:G:\projectWar\TalentPool\testdb with class loader sun.misc.Launcher$AppClassLoader@764c12b6 
+Loaded from file:/C:/Users/System4/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_172-b11
+user.dir=G:\projectWar\TalentPool
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Feb 10 15:53:08 IST 2020:
+Shutting down instance a816c00e-0170-2e9f-c2da-000015655500 on database directory memory:G:\projectWar\TalentPool\testdb with class loader sun.misc.Launcher$AppClassLoader@764c12b6 

@@ -41,6 +41,7 @@ import com.yotabytes.huntill.talentpool.domain.TalentCandidateAddress;
 import com.yotabytes.huntill.talentpool.domain.TalentCandidateInformation;
 import com.yotabytes.huntill.talentpool.domain.TalentCandidateProjectDetails;
 import com.yotabytes.huntill.talentpool.domain.TalentEducationDetails;
+import com.yotabytes.huntill.talentpool.domain.TalentProfessionalDetails;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswer;
 import com.yotabytes.huntill.talentpool.repository.TokenRepository;
@@ -297,6 +298,36 @@ public class TalentPoolApplicationMainController {
 			System.out.println(e.getMessage());
 			logger.info("inside saveCandidateAddressDetails mapping educationDetails save fail ==>> fail");
 			return new ResponseEntity("CandidateAddressDetails save Failed", HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	
+	
+	
+//	@Operation(description = "Save ProfessionalDetails ", responses = {
+//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentProfessionalDetails.class)), responseCode = "200"),
+//			})
+	
+	
+	@RequestMapping(value = "/saveProfessionalDetails", method = RequestMethod.POST)
+	public ResponseEntity<Object> saveCandidateProjectDetails(
+			@RequestBody @Valid List<TalentProfessionalDetails> talentExperience, HttpSession session,
+			HttpServletRequest request) {
+		logger.info("inside saveProfessionalDetails mapping save projectDetails==>> ");
+		try {
+			Iterable<TalentProfessionalDetails> experienceDetails = talentPoolService
+					.saveTalentExperienceDetails(talentExperience); 
+			if (Objects.nonNull(experienceDetails)) {
+				logger.info("inside saveProfessionalDetails mapping ==>> sucssesful");
+				return ResponseEntity.ok("ProfessionalDetails Save sucssesful");
+			}
+			logger.info("inside SaveExperienceDetails mapping ==>> Fail");
+			return new ResponseEntity("SaveProfessionalDetails save Failed", HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			logger.info("inside SaveProfessionalDetails mapping ==>> Fail");
+			return new ResponseEntity("SaveProfessionalDetails save Failed", HttpStatus.BAD_REQUEST);
 		}
 
 	}
