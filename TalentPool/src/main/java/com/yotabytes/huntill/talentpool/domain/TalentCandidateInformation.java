@@ -1,12 +1,27 @@
 package com.yotabytes.huntill.talentpool.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,44 +40,84 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
+
 public class TalentCandidateInformation {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int candidateId;
-	private String candidateUniqeId=UUID.randomUUID().toString().toUpperCase();
+	private String candidateUniqueId=UUID.randomUUID().toString().toUpperCase();
+	 
+	@NotEmpty(message = "Please enter first name")
 	private String firstName;
+	@NotEmpty(message = "middle name is required")
 	private String middleName;
+	@NotEmpty(message = "last name is required")
 	private String lastName;
+	@Size(max = 20, min = 5)
+	@NotEmpty(message = "user name is required")
 	private String userName; 
+	//@Size(max = 20, min = 5)
+	@NotEmpty(message = "Please enter password")
 	private String password;
+	@NotNull(message = "Please enter contactNumber")
+	/*@Size(max = 12, min = 10)*/
 	private Long contactNumber;
+	@Email
+	@NotEmpty(message = "Please enter email")
 	private String emailId;
 	private String alternateEmailId;
-	private String maritalStatus;
-	private String nationality;
-	private String bloodGroup;
-	private String  dateOfBirth;
+	
 	private String gender;
-	private String isEmployer;
+	private String skills;
+	private String currentLocation;
+	private Long experience;
+	private String role;
 	private String isVerify="N";
 	private String isActive="Y";
+	private String isProfileComplete="N";
+	
 	private String createdBy;
+	@CreationTimestamp
 	private Date createdDate;
 	private String updateBy;
+	@CreationTimestamp
 	private Date updateDate;
 	
-	public int getCandidateId() {
-		return candidateId;
+	 @OneToMany(cascade=CascadeType.ALL, mappedBy="talentCandidateInformation")
+	private List<PasswordResetToken> passwordResetToken;
+	
+	/*
+	 * @OneToOne(mappedBy = "talentCandidateInformation") private PasswordResetToken
+	 * passwordResetToken;
+	 */
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="candidateUniqueId")
+	private List<TalentCandidateProjectDetails> projectDetails;
+	
+	
+
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="candidateUniqueId")
+	private List<TalentEducationDetails> educationDetails;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="candidateUniqueId")
+	private List<TalentCandidateAddress> address;
+	
+	
+	  @OneToMany(cascade=CascadeType.ALL)
+	  @JoinColumn(name="candidate_unique_id") 
+	  private List<TalentCandidateProgrammerSkills> programmerSkills;
+	 
+	
+	
+	
+	
+	public String getCandidateUniqueId() {
+		return candidateUniqueId;
 	}
-	public void setCandidateId(int candidateId) {
-		this.candidateId = candidateId;
-	}
-	public String getCandidateUniqeId() {
-		return candidateUniqeId;
-	}
-	public void setCandidateUniqeId(String candidateUniqeId) {
-		this.candidateUniqeId = candidateUniqeId;
+	public void setCandidateUniqueId(String candidateUniqueId) {
+		this.candidateUniqueId = candidateUniqueId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -85,7 +140,7 @@ public class TalentCandidateInformation {
 	public String getUserName() {
 		return userName;
 	}
-	public void setUserId(String userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 	public String getPassword() {
@@ -112,42 +167,35 @@ public class TalentCandidateInformation {
 	public void setAlternateEmailId(String alternateEmailId) {
 		this.alternateEmailId = alternateEmailId;
 	}
-	public String getMaritalStatus() {
-		return maritalStatus;
-	}
-	public void setMaritalStatus(String maritalStatus) {
-		this.maritalStatus = maritalStatus;
-	}
-	public String getNationality() {
+	
+	/*public String getNationality() {
 		return nationality;
 	}
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
-	}
-	public String getBloodGroup() {
-		return bloodGroup;
-	}
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
-	}
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+	}*/
+	
+
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getIsEmployer() {
-		return isEmployer;
+	public String getSkills() {
+		return skills;
 	}
-	public void setIsEmployer(String isEmployer) {
-		this.isEmployer = isEmployer;
+	public void setSkills(String skills) {
+		this.skills = skills;
 	}
+	public String getCurrentLocation() {
+		return currentLocation;
+	}
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+	
+	
 	public String getIsVerify() {
 		return isVerify;
 	}
@@ -159,6 +207,12 @@ public class TalentCandidateInformation {
 	}
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
+	}
+	public String getIsProfileComplete() {
+		return isProfileComplete;
+	}
+	public void setIsProfileComplete(String isProfileComplete) {
+		this.isProfileComplete = isProfileComplete;
 	}
 	public String getCreatedBy() {
 		return createdBy;

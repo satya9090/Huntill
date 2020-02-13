@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,16 +29,23 @@ public class TalentCandidateAddress {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int addressId;
-	private String candidateUniqeId;
-	private String addressType;
-	private String coutry;
+	private String candidateUniqueId;
+	@NotEmpty(message = "Please enter AddressType")
+	private String type;
+	/*private String currentLocation;*/
+	@NotEmpty(message = "Please enter Country")
+	private String country;
+	@NotEmpty(message = "Please enter State")
 	private String state;
+	@NotEmpty(message = "Please enter City")
 	private String city;
+	/* @NotEmpty(message = "Please enter Pincode") */
+	//@Size(max = 6)
 	private Integer pincode;
 	private String createdBy;
-	private Date createdDate;
+	private Date createdDate=new Date();
 	private String updateBy;
-	private Date updateDate;
+	private Date updateDate=new Date();
 	
 	public int getAddressId() {
 		return addressId;
@@ -44,17 +53,12 @@ public class TalentCandidateAddress {
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
-	public String getAddressType() {
-		return addressType;
+	
+	public String getCountry() {
+		return country;
 	}
-	public void setAddressType(String addressType) {
-		this.addressType = addressType;
-	}
-	public String getCoutry() {
-		return coutry;
-	}
-	public void setCoutry(String coutry) {
-		this.coutry = coutry;
+	public void setCoutry(String country) {
+		this.country = country;
 	}
 	public String getState() {
 		return state;
@@ -95,15 +99,21 @@ public class TalentCandidateAddress {
 	public Date getUpdateDate() {
 		return updateDate;
 	}
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(Date updateDate) { 
 		this.updateDate = updateDate;
 	}
-	public String getCandidateUniqeId() {
-		return candidateUniqeId;
+	public String getCandidateUniqueId() {
+		return candidateUniqueId;
 	}
-	public void setCandidateUniqeId(String candidateUniqeId) {
-		this.candidateUniqeId = candidateUniqeId;
+	public void setCandidateUniqueId(String candidateUniqueId) {
+		this.candidateUniqueId = candidateUniqueId;
 	}
+	/*public String getCurrentLocation() {
+		return currentLocation;
+	}
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}*/
 	
 	
 }

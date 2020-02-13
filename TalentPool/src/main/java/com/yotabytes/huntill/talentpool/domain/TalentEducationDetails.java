@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,60 +27,35 @@ public class TalentEducationDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String candidateUniqeId;
-	private String qualification;
-	private String instituteName;
-	private String passingYear;
-	private String specification;
+	private int educationId;
+	private String candidateUniqueId;
+	@NotEmpty(message = "Please enter Institute Name")
+	private String institution;
+	@NotEmpty(message = "Please enter Stating Year")
+	private String startYear;
+	private String endYear;
+	@NotEmpty(message = "Please enter Specification")
+	private String subject;
+	@NotEmpty(message = "Please enter Percentage")
 	private String percentage;
-	private String courseType;
 	private String createdBy;
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
-	public int getId() {
-		return id;
+	public int getEducationId() {
+		return educationId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setEducationId(int id) {
+		this.educationId = id;
 	}
-	public String getQualification() {
-		return qualification;
-	}
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-	public String getInstituteName() {
-		return instituteName;
-	}
-	public void setInstituteName(String instituteName) {
-		this.instituteName = instituteName;
-	}
-	public String getPassingYear() {
-		return passingYear;
-	}
-	public void setPassingYear(String passingYear) {
-		this.passingYear = passingYear;
-	}
-	public String getSpecification() {
-		return specification;
-	}
-	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
+	
 	public String getPercentage() {
 		return percentage;
 	}
 	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
-	public String getCourseType() {
-		return courseType;
-	}
-	public void setCourseType(String courseType) {
-		this.courseType = courseType;
-	}
+	
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -104,11 +80,11 @@ public class TalentEducationDetails {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getCandidateUniqeId() {
-		return candidateUniqeId;
+	public String getCandidateUniqueId() {
+		return candidateUniqueId;
 	}
-	public void setCandidateUniqeId(String candidateUniqeId) {
-		this.candidateUniqeId = candidateUniqeId;
+	public void setCandidateUniqueId(String candidateUniqueId) {
+		this.candidateUniqueId = candidateUniqueId;
 	}
 	
 	

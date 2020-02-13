@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.sun.research.ws.wadl.Request;
+import com.yotabytes.huntill.talentpool.domain.PasswordResetToken;
 import com.yotabytes.huntill.talentpool.domain.TalentCandidateInformation;
 
 public class MailUtil {
@@ -137,13 +138,14 @@ public class MailUtil {
 				+request.getServerName()+":"
 				+request.getServerPort()
 				+"/"+"api"+"/"
-				+"VerifyEmail"+"?"
-				+"uniqeId"+"="+information.getCandidateUniqeId()
+				+"v1"+"/"
+				+"verifyEmail"+"?"
+				+"uniqeId"+"="+information.getCandidateUniqueId()
 				+">VerifyEmail</a></body></html>"
 				+  "<br/-----<br/><br/>Thank you");
 
 		MailUtil.sendMail("", "1994satyabrataw@gmail.com",
-				"", "",
+				"Bibekam@gmail.com", "",
 				"Candidate- Registration",
 				"Hello,<br/><br/> New coustomer registration ,<br/><br/>"
 				+ "<table border=1>"
@@ -161,16 +163,21 @@ public class MailUtil {
 	
 	public static void mailSendToResetPassword(HttpSession session,HttpServletRequest request)
 	{
-		TalentCandidateInformation information=(TalentCandidateInformation)session.getAttribute("information");
-		session.setAttribute("candidate_uniqueId", information.getCandidateUniqeId());
-		MailUtil.sendToCandidateMail("", information.getEmailId(), "",
+		PasswordResetToken information=(PasswordResetToken)session.getAttribute("information");
+		//session.setAttribute("token", information.getPasswordResetToken().getToken());
+		System.out.println(information.getTalentCandidateInformation().getEmailId());
+		System.out.println("token::"+information.getToken());
+		MailUtil.sendToCandidateMail("", information.getTalentCandidateInformation().getEmailId(), "",
 				"TalentPool - ResetPassword",
-				"Hello,<br/><br/> Reset your Password  <br/>"
+				"Hello,<br/><br/> Reset your Password <br/>"
 				+"<html><body><p>"+"<a href=http://"
 				+request.getServerName()+":"
 				+request.getServerPort()
-				+"/"+"api"+"/"
-				+"ResetPasswordPage"
+				+"/"+"talent-pool-ui"+"/"
+				+"#"+"/"
+				+"auth"+"/"
+				+"reset-password"+"?"
+				+"token"+"="+information.getToken()
 				+">ResetPassword</a></body></html>"
 				+  "<br/-----<br/><br/>Thank you");
 	

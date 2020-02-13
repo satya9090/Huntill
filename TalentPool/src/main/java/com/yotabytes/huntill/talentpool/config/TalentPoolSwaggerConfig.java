@@ -1,27 +1,78 @@
 package com.yotabytes.huntill.talentpool.config;
 
-import org.springframework.context.annotation.Configuration;
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @Configuration
-
+@EnableSwagger2
 public class TalentPoolSwaggerConfig {
 
-	@Bean	
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .components(new Components())
-                .info(new Info().title("Talent Pool Application").description(
-                        "This is Talent Pool application"));
+	/*
+	 * @Bean public OpenAPI customOpenAPI() { return new OpenAPI().components(new
+	 * Components()) .info(new Info().title("Talent Pool Application").
+	 * description("This is Talent Pool application")); }
+	 */
+	
+	
+	
+	@Autowired
+    private SecurityScheme securityScheme;
+
+    @Autowired
+    private SecurityContext securityContext;
+
+    private final Predicate<String> COMPANY_API = PathSelectors.ant("/api/v1/**");
+    private final Predicate<String> OAUTH_API = PathSelectors.ant("/oauth/**");
+
+    @Bean
+    public Docket companyApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Company API")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(COMPANY_API)
+                .build()
+                .securitySchemes(Lists.newArrayList(securityScheme))
+                .securityContexts(Lists.newArrayList(securityContext));
     }
+
+    @Bean
+    public Docket authenticationApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("OAuth 2.0 API")
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(OAUTH_API)
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        Contact contact = new Contact("Adam Zaręba", "http://adamzareba.github.io", "testEmail@gmail.com");
+        return new ApiInfoBuilder()
+                .title("TalentPool Application REST API")
+                .description("List of available API served by TalentPool Application")
+                .version("1.0")
+                .license("Apache 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
+                .contact(contact)
+                .build();
+    }
+
 }

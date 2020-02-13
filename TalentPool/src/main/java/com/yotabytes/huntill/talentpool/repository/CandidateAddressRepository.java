@@ -7,6 +7,8 @@ import com.yotabytes.huntill.talentpool.domain.TalentCandidateAddress;
 @Repository
 public interface CandidateAddressRepository extends CrudRepository<TalentCandidateAddress, String>{
 
-	TalentCandidateAddress findBycandidateUniqeId(String candidateUniqeId);
+	TalentCandidateAddress findByCandidateUniqueId(String candidateUniqueId);
+
+	TalentCandidateAddress findByAddressId(int addressId);
 
 }
