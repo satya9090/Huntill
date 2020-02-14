@@ -6,28 +6,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 public class ResetPasswordDTO {
-	
 
-private String resetPasswordToken;
- 
-private String password;
+	private String resetPasswordToken;
 
-public String getResetPasswordToken() {
-	return resetPasswordToken;
-}
+	private String password;
 
-public void setResetPasswordToken(String resetPasswordToken) {
-	this.resetPasswordToken = resetPasswordToken;
-}
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
 
-public String getPassword() {
-	return password;
-}
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
 
-public void setPassword(String password) {
-	this.password = password;
-}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

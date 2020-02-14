@@ -28,8 +28,8 @@ import com.yotabytes.huntill.talentpool.repository.TalentQuestionRepository;
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 
 @Service
-public class TalentPoolServiceImpl implements TalentPoolService{
-	
+public class TalentPoolServiceImpl implements TalentPoolService {
+
 	final static Logger logger = Logger.getLogger(TalentPoolPaymentController.class);
 
 	@Autowired
@@ -37,53 +37,50 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 
 	@Autowired
 	private CandidateInformationRepository candidateInformationRepository;
-	
+
 	@Autowired
 	private CandidateProjectDetailsRepository candidateProjectDetailsRepository;
-	
+
 	@Autowired
 	private CandidateEducationRepository candidateEducationRepository;
-	
+
 	@Autowired
 	private CandidateAddressRepository candidateAddressRepository;
-	
+
 	@Autowired
 	private CandidateExperienceRepository candidateExperienceRepository;
-	
-	
-	
+
 	@Autowired
 	private TalentQuestionAnswerRepository talentQuestionAnswerRepository;
 
-	 @PersistenceContext
-	 private EntityManager manager;
-	 
+	@PersistenceContext
+	private EntityManager manager;
+
 	public List<TalentQuestion> findAll() {
 		return talentQuestionRepository.findAll();
 	}
 
 	public TalentCandidateInformation saveCandidateInformationProfiles(TalentCandidateInformation information) {
 		TalentCandidateInformation information1 = null;
-		
-		try
-		{
+
+		try {
 			information1 = candidateInformationRepository.findByCandidateUniqueId(information.getCandidateUniqueId());
-			
+
 			information1.setGender(information.getGender());
-			//information1.setBloodGroup(information.getBloodGroup());
+			// information1.setBloodGroup(information.getBloodGroup());
 			information1.setAlternateEmailId(information.getAlternateEmailId());
 			information1.setRole(information.getRole());
-		//	information1.setDateOfBirth(information.getDateOfBirth());	
+			// information1.setDateOfBirth(information.getDateOfBirth());
 			/*
 			 * information1.setSkills(information.getSkills());
 			 * information1.setCurrentLocation(information.getCurrentLocation());
 			 * information1.setExperience(information.getExperience());
 			 */
 			information1.setIsProfileComplete(information.getIsProfileComplete());
-			
+
 			return candidateInformationRepository.save(information1);
-			//return information1;
-		}catch (Exception e) {
+			// return information1;
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -92,85 +89,74 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	public TalentCandidateInformation saveCandidateInformation(TalentCandidateInformation information) {
 		return candidateInformationRepository.save(information);
 	}
-	public Iterable<TalentCandidateProjectDetails> saveCandidateProjectDetails(List<TalentCandidateProjectDetails> projectDetails) {
+
+	public Iterable<TalentCandidateProjectDetails> saveCandidateProjectDetails(
+			List<TalentCandidateProjectDetails> projectDetails) {
 		return candidateProjectDetailsRepository.saveAll(projectDetails);
 	}
-	
-	public Iterable<TalentCandidateAddress> saveCandidateAddress(List<TalentCandidateAddress> address)
-	{
+
+	public Iterable<TalentCandidateAddress> saveCandidateAddress(List<TalentCandidateAddress> address) {
 		return candidateAddressRepository.saveAll(address);
 	}
-	
-	public TalentCandidateAddress findByCandidateAddressId(int addressId)
-	{
+
+	public TalentCandidateAddress findByCandidateAddressId(int addressId) {
 		return candidateAddressRepository.findByAddressId(addressId);
 	}
-	
-	public TalentCandidateAddress saveCandidateUpdateAddress(TalentCandidateAddress addressNew)
-	{
+
+	public TalentCandidateAddress saveCandidateUpdateAddress(TalentCandidateAddress addressNew) {
 		return candidateAddressRepository.save(addressNew);
 	}
-	
-	public TalentCandidateProjectDetails findByCandidateProjectId(int projectId)
-	{
+
+	public TalentCandidateProjectDetails findByCandidateProjectId(int projectId) {
 		return candidateProjectDetailsRepository.findByprojectId(projectId);
 	}
-	
-	
-	public Iterable<TalentEducationDetails> saveEducationDetails(Iterable<TalentEducationDetails> educationDetails)
-	{
-		return  candidateEducationRepository.saveAll(educationDetails);
+
+	public Iterable<TalentEducationDetails> saveEducationDetails(Iterable<TalentEducationDetails> educationDetails) {
+		return candidateEducationRepository.saveAll(educationDetails);
 	}
-	
-	public TalentEducationDetails findEducationId(int educationId)
-	{
-		return  candidateEducationRepository.findByEducationId(educationId);
+
+	public TalentEducationDetails findEducationId(int educationId) {
+		return candidateEducationRepository.findByEducationId(educationId);
 	}
-	public TalentCandidateInformation findByUserId(String userId)
-	{
-		
+
+	public TalentCandidateInformation findByUserId(String userId) {
+
 		return candidateInformationRepository.findByUserName(userId);
 	}
-	
-	public TalentEducationDetails saveEducationDetail(TalentEducationDetails educationNew)
-	{
-		return  candidateEducationRepository.save(educationNew);
+
+	public TalentEducationDetails saveEducationDetail(TalentEducationDetails educationNew) {
+		return candidateEducationRepository.save(educationNew);
 	}
-	public TalentCandidateProjectDetails saveCandidateProject(TalentCandidateProjectDetails project1)
-	{
+
+	public TalentCandidateProjectDetails saveCandidateProject(TalentCandidateProjectDetails project1) {
 		return candidateProjectDetailsRepository.save(project1);
 	}
-	
-	public TalentCandidateInformation findByEmailId(String email)
-	{
+
+	public TalentCandidateInformation findByEmailId(String email) {
 		return candidateInformationRepository.findByEmailId(email);
 	}
-	
-	public TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password,String isActive)
-	{
-		return candidateInformationRepository.findByUserNameAndPasswordAndIsActive(username, password,isActive);
+
+	public TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password,
+			String isActive) {
+		return candidateInformationRepository.findByUserNameAndPasswordAndIsActive(username, password, isActive);
 	}
-	
-	public TalentCandidateInformation findByCandidateUniqeId(String candidateUniqeId)
-	{
+
+	public TalentCandidateInformation findByCandidateUniqeId(String candidateUniqeId) {
 		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqeId);
 	}
-	
-	   /*
+
+	/*
 	 * public CandidateInformation save(String encriptedPassword) { return null; }
 	 */
-	public TalentCandidateProjectDetails findByCandidateUniqeid(String candidateUniqeId)
-	{
+	public TalentCandidateProjectDetails findByCandidateUniqeid(String candidateUniqeId) {
 		return candidateProjectDetailsRepository.findBycandidateUniqueId(candidateUniqeId);
 	}
-	
-	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqeId)
-	{
+
+	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqeId) {
 		return candidateEducationRepository.findByCandidateUniqueId(candidateUniqeId);
 	}
-	
-	public TalentCandidateAddress findByCandidateUniqeIdFromCandidateAddress(String candidateUniqeId)
-	{
+
+	public TalentCandidateAddress findByCandidateUniqeIdFromCandidateAddress(String candidateUniqeId) {
 		return candidateAddressRepository.findByCandidateUniqueId(candidateUniqeId);
 	}
 
@@ -194,24 +180,25 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	 * criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])); }
 	 * }); }
 	 */
-	/*public List<TalentCandidateSearch> findBySkillsAndCurrentLocationAndExperience(String skills, String currentLocation,
-			String experience)
-	{
-		return candidateSearchRepository.findBySkillsAndCurrentLocationAndExperience(skills,currentLocation,experience);
-	}*/
-	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer)
-	{
+	/*
+	 * public List<TalentCandidateSearch>
+	 * findBySkillsAndCurrentLocationAndExperience(String skills, String
+	 * currentLocation, String experience) { return
+	 * candidateSearchRepository.findBySkillsAndCurrentLocationAndExperience(skills,
+	 * currentLocation,experience); }
+	 */
+	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer) {
 		return talentQuestionAnswerRepository.save(answer);
 	}
-	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId)
-	{
+
+	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId) {
 		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqueId);
 	}
 
 	@Override
 	public TalentCandidateInformation findByUserName(String name) {
 		// TODO Auto-generated method stub
-		TalentCandidateInformation talentCandidateInformation= candidateInformationRepository.findByUserName(name);
+		TalentCandidateInformation talentCandidateInformation = candidateInformationRepository.findByUserName(name);
 		talentCandidateInformation.setPassword(null);
 		return talentCandidateInformation;
 	}
@@ -219,14 +206,14 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	@Override
 	public TalentCandidateInformation findByUserNameAndIsActive(String userName, String isActive) {
 		// TODO Auto-generated method stub
-		return candidateInformationRepository.findByUserNameAndIsActive(userName,isActive);
+		return candidateInformationRepository.findByUserNameAndIsActive(userName, isActive);
 	}
 
 	@Override
 	public List<TalentCandidateInformation> findAllUser() {
-		
+
 		return (List<TalentCandidateInformation>) candidateInformationRepository.findAll();
-		
+
 	}
 
 	@Override
@@ -234,10 +221,9 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 		// TODO Auto-generated method stub
 		return (List<TalentCandidateProjectDetails>) candidateProjectDetailsRepository.findAll();
 	}
-	
-	
-	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(List<TalentProfessionalDetails> talentExperience)
-	{
+
+	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(
+			List<TalentProfessionalDetails> talentExperience) {
 		return candidateExperienceRepository.saveAll(talentExperience);
 	}
 

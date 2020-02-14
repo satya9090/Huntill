@@ -8,7 +8,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication (scanBasePackages={"com.yotabytes.huntill.talentpool.controller","com.yotabytes.huntill.talentpool.service","com.yotabytes.huntill.talentpool.repository","com.yotabytes.huntill.talentpool.domain","com.yotabytes.huntill.talentpool.utils","com.yotabytes.huntill.talentpool.*"})
+@SpringBootApplication(scanBasePackages = { "com.yotabytes.huntill.talentpool.controller",
+		"com.yotabytes.huntill.talentpool.service", "com.yotabytes.huntill.talentpool.repository",
+		"com.yotabytes.huntill.talentpool.domain", "com.yotabytes.huntill.talentpool.utils",
+		"com.yotabytes.huntill.talentpool.*" })
 @RestController
 @EntityScan("com.yotabytes.huntill.talentpool.domain")
 @EnableJpaRepositories("com.yotabytes.huntill.talentpool.repository")

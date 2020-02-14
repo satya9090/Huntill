@@ -14,29 +14,28 @@ import com.yotabytes.huntill.talentpool.domain.TalentQuestion;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionAnswer;
 import com.yotabytes.huntill.talentpool.domain.TalentQuestionOption;
 
-
-
 @Service
 public interface TalentPoolService {
-	
-	
-	
+
 	public TalentCandidateInformation saveCandidateInformation(TalentCandidateInformation information);
-	
-	public  Iterable<TalentCandidateProjectDetails>  saveCandidateProjectDetails(List<TalentCandidateProjectDetails> projectDetails);
-	
+
+	public Iterable<TalentCandidateProjectDetails> saveCandidateProjectDetails(
+			List<TalentCandidateProjectDetails> projectDetails);
+
 	public TalentCandidateInformation findByUserId(String userId);
-	
+
 	public TalentCandidateInformation findByEmailId(String email);
 
-	public TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password,String isActive);
+	public TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password,
+			String isActive);
 
 	public TalentCandidateInformation findByCandidateUniqeId(String candidateUniqeId);
+
 	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId);
 	/* public CandidateInformation save(String encriptedPassword); */
 
 	public TalentCandidateProjectDetails findByCandidateUniqeid(String candidateUniqeId);
-	
+
 	public TalentCandidateAddress findByCandidateUniqeIdFromCandidateAddress(String candidateUniqeId);
 
 	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer);
@@ -53,8 +52,6 @@ public interface TalentPoolService {
 
 	public TalentCandidateProjectDetails findByCandidateProjectId(int projectId);
 
-	
-
 	public TalentCandidateProjectDetails saveCandidateProject(TalentCandidateProjectDetails project1);
 
 	public TalentEducationDetails findEducationId(int educationId);
@@ -70,15 +67,18 @@ public interface TalentPoolService {
 	public TalentCandidateInformation findByUserNameAndIsActive(String userName, String isActive);
 
 	public List<TalentQuestion> findAll();
-	
+
 	public List<TalentCandidateProjectDetails> find();
 
 	public List<TalentCandidateInformation> findAllUser();
-	
-	
-	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(List<TalentProfessionalDetails> talentExperience);
 
-	/*public List<TalentCandidateSearch> findBySkillsAndCurrentLocationAndExperience(String skills, String currentLocation,
-			String experience);*/
+	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(
+			List<TalentProfessionalDetails> talentExperience);
+
+	/*
+	 * public List<TalentCandidateSearch>
+	 * findBySkillsAndCurrentLocationAndExperience(String skills, String
+	 * currentLocation, String experience);
+	 */
 
 }

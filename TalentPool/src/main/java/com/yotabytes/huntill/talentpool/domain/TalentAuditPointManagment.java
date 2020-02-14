@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity (name= "talent_Audit_PointManagment")
+@Entity(name = "talent_Audit_PointManagment")
 
 @Builder
 @AllArgsConstructor
@@ -29,9 +29,9 @@ import lombok.ToString;
 public class TalentAuditPointManagment {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int auditPointId;
-	private String candidateUniqueId;  
+	private String candidateUniqueId;
 	private int addPoint;
 	private int updatePoint;
 	private int removePoint;
@@ -40,65 +40,85 @@ public class TalentAuditPointManagment {
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
+
 	public int getAuditPointId() {
 		return auditPointId;
 	}
+
 	public void setAuditPointId(int auditPointId) {
 		this.auditPointId = auditPointId;
 	}
+
 	public String getCandidateUniqueId() {
 		return candidateUniqueId;
 	}
+
 	public void setCandidateUniqueId(String candidateUniqueId) {
 		this.candidateUniqueId = candidateUniqueId;
 	}
+
 	public int getAddPoint() {
 		return addPoint;
 	}
+
 	public void setAddPoint(int addPoint) {
 		this.addPoint = addPoint;
 	}
+
 	public int getUpdatePoint() {
 		return updatePoint;
 	}
+
 	public void setUpdatePoint(int updatePoint) {
 		this.updatePoint = updatePoint;
 	}
+
 	public int getRemovePoint() {
 		return removePoint;
 	}
+
 	public void setRemovePoint(int removePoint) {
 		this.removePoint = removePoint;
 	}
+
 	public String getTransactionType() {
 		return transactionType;
 	}
+
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
 	public String getUpdateBy() {
 		return updateBy;
 	}
+
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
+
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 }

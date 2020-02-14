@@ -61,24 +61,27 @@ public class TalentPoolPaymentServiceImpl implements TalentPoolPaymentService {
 	public TalentPointManagment removePoint(TalentPointManagment talentPointManagment1) {
 		try {
 
-			if((talentPointManagment1.getCurrentAvailablePoint())>(talentPointManagment1.getResume() * PointManagment.Rusume))
-			{
-				System.out.println(talentPointManagment1.getCandidateUniqueId()+talentPointManagment1.getResume()+talentPointManagment1.getTransactionType());
+			if ((talentPointManagment1.getCurrentAvailablePoint()) > (talentPointManagment1.getResume()
+					* PointManagment.Rusume)) {
+				System.out.println(talentPointManagment1.getCandidateUniqueId() + talentPointManagment1.getResume()
+						+ talentPointManagment1.getTransactionType());
 				TalentAuditPointManagment auditPoint = new TalentAuditPointManagment();
 				auditPoint.setCandidateUniqueId(talentPointManagment1.getCandidateUniqueId());
 				auditPoint.setRemovePoint(talentPointManagment1.getResume() * PointManagment.Rusume);
 				auditPoint.setTransactionType(talentPointManagment1.getTransactionType());
 				auditPoint.setUpdateDate(new Date());
-				auditManagmentRepository.save(auditPoint);	
+				auditManagmentRepository.save(auditPoint);
 				talentPointManagment1.setCurrentAvailablePoint(
 						talentPointManagment1.getCurrentAvailablePoint() - auditPoint.getRemovePoint());
 				talentPointManagment1.setUpdateDate(new Date());
-				return PointManagmentRepository.save(talentPointManagment1); 
-			}else {
-				System.out.println(talentPointManagment1.getCurrentAvailablePoint()+talentPointManagment1.getCandidateUniqueId()+talentPointManagment1.getResume()+talentPointManagment1.getTransactionType());
+				return PointManagmentRepository.save(talentPointManagment1);
+			} else {
+				System.out.println(
+						talentPointManagment1.getCurrentAvailablePoint() + talentPointManagment1.getCandidateUniqueId()
+								+ talentPointManagment1.getResume() + talentPointManagment1.getTransactionType());
 			}
-			
-		} catch (Exception e) { 
+
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return null;

@@ -1,7 +1,9 @@
 package com.yotabytes.huntill.talentpool.service;
+
 import org.springframework.stereotype.Service;
 
 import com.yotabytes.huntill.talentpool.domain.TalentPointManagment;
+
 @Service
 public interface TalentPoolPaymentService {
 

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity (name= "talent_candidate_Programme_skills")
+@Entity(name = "talent_candidate_Programme_skills")
 
 @Builder
 @AllArgsConstructor
@@ -29,7 +29,7 @@ import lombok.ToString;
 @Setter
 public class TalentCandidateProgrammerSkills {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "skill_id")
 	private int skillId;
 	@Column(name = "candidate_unique_id")
@@ -54,7 +54,7 @@ public class TalentCandidateProgrammerSkills {
 	@CreationTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;
-	
+
 	@Column(name = "framework")
 	private String framework;
 

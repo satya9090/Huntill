@@ -57,11 +57,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-
-
-
-
-
 //@Api(value = "TalentPool Application API")
 @CrossOrigin(origins = "*")
 @RestController
@@ -74,28 +69,25 @@ public class TalentPoolApplicationMainController {
 	final static Logger logger = Logger.getLogger(TalentPoolApplicationMainController.class);
 	@Autowired
 	private TalentPoolService talentPoolService;
-	
-	
-	  @Autowired 
-	  private TokenRepository tokenRepository;
-	 
+
+	@Autowired
+	private TokenRepository tokenRepository;
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private PasswordEncryptionUtil encoder;
 	@Autowired
 	private PdfService pdfService;
-	
-//	@RequestMapping("/")
-//	@ResponseBody
-//	public String welcome() {
-//		return "Welcome to Huntill Rest API ";
-//	}
 
+	// @RequestMapping("/")
+	// @ResponseBody
+	// public String welcome() {
+	// return "Welcome to Huntill Rest API ";
+	// }
 
 	@ApiOperation(value = "Find All Talent Questions ")
-	@ApiResponses(value = { 
-			 @ApiResponse(code = 200, message  = "successful operation") })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation") })
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
@@ -107,16 +99,17 @@ public class TalentPoolApplicationMainController {
 		return new ResponseEntity<>(talentQuestions, HttpStatus.FOUND);
 
 	}
-         /*Token validation  */
-	 @ApiOperation(value = "candidate Details")
-			 @ApiResponse(code = 200, message = "Successfully retrieved list")
-	@RequestMapping(value="/getUser",method = RequestMethod.GET)
-	    public ResponseEntity<Object> user(Principal principal) {
-		 System.out.println(principal.getName());
-		     //TalentCandidateInformation candidateInformation = null;
-		 TalentCandidateInformation candidateInformation= talentPoolService.findByUserName(principal.getName());
-	        return ResponseEntity.ok(candidateInformation);
-	    }
+
+	/* Token validation */
+	@ApiOperation(value = "candidate Details")
+	@ApiResponse(code = 200, message = "Successfully retrieved list")
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	public ResponseEntity<Object> user(Principal principal) {
+		System.out.println(principal.getName());
+		// TalentCandidateInformation candidateInformation = null;
+		TalentCandidateInformation candidateInformation = talentPoolService.findByUserName(principal.getName());
+		return ResponseEntity.ok(candidateInformation);
+	}
 
 	/*
 	 * @Operation(description = "coustomer login", responses = {
@@ -124,19 +117,20 @@ public class TalentPoolApplicationMainController {
 	 * @ApiResponse(content = @Content(schema = @Schema(implementation =
 	 * TalentCandidateInformation.class)), responseCode = "200"), })
 	 */
-	 @ApiOperation(value = "coustomer login")
-	
+	@ApiOperation(value = "coustomer login")
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	 
+
 	public ResponseEntity<Object> login(@RequestBody TalentCandidateInformation information) {
 		TalentCandidateInformation candidateInformation1 = null;
 		try {
 			logger.info("Candidate pass userId and Password for login");
-			TalentCandidateInformation candidateInformation2=talentPoolService.findByUserNameAndIsActive(information.getUserName(),information.getIsActive());
-			System.out.println("password:"+candidateInformation2.getPassword());
-			boolean data=passwordEncoder.matches(information.getPassword(), candidateInformation2.getPassword());
-			System.out.println(data+"return");
-			
+			TalentCandidateInformation candidateInformation2 = talentPoolService
+					.findByUserNameAndIsActive(information.getUserName(), information.getIsActive());
+			System.out.println("password:" + candidateInformation2.getPassword());
+			boolean data = passwordEncoder.matches(information.getPassword(), candidateInformation2.getPassword());
+			System.out.println(data + "return");
+
 			/*
 			 * candidateInformation1 =
 			 * talentPoolService.findByUserNameAndPasswordAndIsActive(information.
@@ -144,7 +138,7 @@ public class TalentPoolApplicationMainController {
 			 * information.getIsActive());
 			 */
 
-			if (data==true) {
+			if (data == true) {
 				logger.info("return TalentCandidateInformation object when login successful ");
 				return ResponseEntity.ok(candidateInformation2);
 
@@ -158,12 +152,16 @@ public class TalentPoolApplicationMainController {
 		}
 
 	}
-//
-//	@Operation(description = "Create new person", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+
+	//
+	// @Operation(description = "Create new person", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public ResponseEntity<Object> saveCandidateRegistration(@RequestBody @Valid TalentCandidateInformation information) {
+	public ResponseEntity<Object> saveCandidateRegistration(
+			@RequestBody @Valid TalentCandidateInformation information) {
 
 		TalentCandidateInformation checkUserName = new TalentCandidateInformation();
 		TalentCandidateInformation checkEmailId = new TalentCandidateInformation();
@@ -180,16 +178,16 @@ public class TalentPoolApplicationMainController {
 					return new ResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
 
 				} else {
-					//session.setAttribute("uniqueId", information.getCandidateUniqueId());
+					// session.setAttribute("uniqueId", information.getCandidateUniqueId());
 					information.setPassword(passwordEncoder.encode(information.getPassword()));
 					information.setCreatedDate(new Date());
 					information.setUpdateDate(new Date());
 					information = talentPoolService.saveCandidateInformation(information);
-					//session.setAttribute("information", information);
+					// session.setAttribute("information", information);
 					if (Objects.nonNull(information)) {
-						//MailUtil.mailSendUtil(session, request);
+						// MailUtil.mailSendUtil(session, request);
 						logger.info("user Registration==> sucessful ");
-						List<TalentCandidateInformation> alentCandidateInformation=talentPoolService.findAllUser();
+						List<TalentCandidateInformation> alentCandidateInformation = talentPoolService.findAllUser();
 						return ResponseEntity.ok(alentCandidateInformation);
 
 					}
@@ -206,12 +204,13 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Save Candidate BasicInformation", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+	// @Operation(description = "Save Candidate BasicInformation", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@RequestMapping(value = "/saveCandidateProfileDetails", method = RequestMethod.POST)
-	public ResponseEntity<Object> saveCandidateInformation(@RequestBody TalentCandidateInformation information
-			) {
+	public ResponseEntity<Object> saveCandidateInformation(@RequestBody TalentCandidateInformation information) {
 		TalentCandidateInformation information1 = null;
 		logger.info("inside saveCandidateInformation mapping ==>> ");
 		try {
@@ -229,20 +228,21 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Save Candidate ProjectDetails", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+	// @Operation(description = "Save Candidate ProjectDetails", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@RequestMapping(value = "/saveCandidateProjectDetails", method = RequestMethod.POST)
 	public ResponseEntity<Object> saveCandidateProjectDetails(
-			@RequestBody @Valid List<TalentCandidateProjectDetails> projectDetails
-			) {
+			@RequestBody @Valid List<TalentCandidateProjectDetails> projectDetails) {
 		logger.info("inside saveCandidateExperience mapping save projectDetails==>> ");
 		try {
 			Iterable<TalentCandidateProjectDetails> projectDetail = talentPoolService
-					.saveCandidateProjectDetails(projectDetails); 
+					.saveCandidateProjectDetails(projectDetails);
 			if (Objects.nonNull(projectDetail)) {
 				logger.info("inside saveCandidateExperience mapping ==>> sucssesful");
-				
+
 				return ResponseEntity.ok(projectDetail);
 			}
 			logger.info("inside saveCandidateExperience mapping ==>> Fail");
@@ -255,9 +255,11 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Save Candidate EducationDetails", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+	// @Operation(description = "Save Candidate EducationDetails", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@RequestMapping(value = "/saveCandidateEducationDetails", method = RequestMethod.POST)
 	public ResponseEntity<Object> saveCandidateEducationDetails(
 			@RequestBody @Valid List<TalentEducationDetails> educationDetails) {
@@ -279,11 +281,14 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Save Candidate AddressDetails", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+	// @Operation(description = "Save Candidate AddressDetails", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@RequestMapping(value = "/saveCandidateAddressDetails", method = RequestMethod.POST)
-	public ResponseEntity<Object> saveCandidateAddressDetails(@RequestBody @Valid List<TalentCandidateAddress> address) {
+	public ResponseEntity<Object> saveCandidateAddressDetails(
+			@RequestBody @Valid List<TalentCandidateAddress> address) {
 		logger.info("inside saveCandidateAddressDetails mapping save AddressDetails==>> ");
 		try {
 			Iterable<TalentCandidateAddress> educationDetail = talentPoolService.saveCandidateAddress(address);
@@ -301,15 +306,12 @@ public class TalentPoolApplicationMainController {
 		}
 
 	}
-	
-	
-	
-	
-//	@Operation(description = "Save ProfessionalDetails ", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentProfessionalDetails.class)), responseCode = "200"),
-//			})
-	
-	
+
+	// @Operation(description = "Save ProfessionalDetails ", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentProfessionalDetails.class)), responseCode = "200"),
+	// })
+
 	@RequestMapping(value = "/saveProfessionalDetails", method = RequestMethod.POST)
 	public ResponseEntity<Object> saveCandidateProjectDetails(
 			@RequestBody @Valid List<TalentProfessionalDetails> talentExperience, HttpSession session,
@@ -317,7 +319,7 @@ public class TalentPoolApplicationMainController {
 		logger.info("inside saveProfessionalDetails mapping save projectDetails==>> ");
 		try {
 			Iterable<TalentProfessionalDetails> experienceDetails = talentPoolService
-					.saveTalentExperienceDetails(talentExperience); 
+					.saveTalentExperienceDetails(talentExperience);
 			if (Objects.nonNull(experienceDetails)) {
 				logger.info("inside saveProfessionalDetails mapping ==>> sucssesful");
 				return ResponseEntity.ok("ProfessionalDetails Save sucssesful");
@@ -332,9 +334,11 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "VerifyEmail for candidate", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"),
-//			@ApiResponse(responseCode = "409", description = "Person with such e-mail already exists") })
+	// @Operation(description = "VerifyEmail for candidate", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"),
+	// @ApiResponse(responseCode = "409", description = "Person with such e-mail
+	// already exists") })
 	@GetMapping(value = "/verifyEmail")
 	public ResponseEntity<Object> checkValidEmail(@RequestParam("uniqeId") String candidateUniqeId) {
 
@@ -361,58 +365,58 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Forgot Password Mail send to candidate", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
-	
-	 @ApiOperation(value = "forgot Password")
+	// @Operation(description = "Forgot Password Mail send to candidate", responses
+	// = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
+
+	@ApiOperation(value = "forgot Password")
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
-	public ResponseEntity<Object> checkPassword(@RequestBody TalentCandidateInformation talentCandidateInformation, HttpSession session,
-			HttpServletRequest request) {
+	public ResponseEntity<Object> checkPassword(@RequestBody TalentCandidateInformation talentCandidateInformation,
+			HttpSession session, HttpServletRequest request) {
 		TalentCandidateInformation information = null;
 		try {
 			logger.info("userName  ==>>" + talentCandidateInformation.getUserName());
-			TalentCandidateInformation	information1 = talentPoolService.findByUserName(talentCandidateInformation.getUserName());
-			information=talentPoolService.findByEmailId(information1.getEmailId());
-			//System.out.println("Token::"+information.getPasswordResetToken().getToken());
+			TalentCandidateInformation information1 = talentPoolService
+					.findByUserName(talentCandidateInformation.getUserName());
+			information = talentPoolService.findByEmailId(information1.getEmailId());
+			// System.out.println("Token::"+information.getPasswordResetToken().getToken());
 			PasswordResetToken token = new PasswordResetToken();
-			
-			 
+
 			if (Objects.nonNull(information)) {
-				 
-			        token.setToken(UUID.randomUUID().toString());
-			        token.setTalentCandidateInformation(information);
-			        token.setCandidateUniqueId(information.getCandidateUniqueId());
-			        token.setExpiryDate(30);
-			        token.setIsUpdate("N");
-			      PasswordResetToken passwordResetToken= tokenRepository.findByCandidateUniqueIdAndIsUpdate(token.getTalentCandidateInformation().getCandidateUniqueId(),token.getIsUpdate());
-				
+
+				token.setToken(UUID.randomUUID().toString());
+				token.setTalentCandidateInformation(information);
+				token.setCandidateUniqueId(information.getCandidateUniqueId());
+				token.setExpiryDate(30);
+				token.setIsUpdate("N");
+				PasswordResetToken passwordResetToken = tokenRepository.findByCandidateUniqueIdAndIsUpdate(
+						token.getTalentCandidateInformation().getCandidateUniqueId(), token.getIsUpdate());
+
 				if (Objects.nonNull(passwordResetToken)) {
-				 if(passwordResetToken.isExpired()) {
-					//tokenRepository.delete(passwordResetToken);
-					passwordResetToken.setExpiryDate(30);
-					passwordResetToken.setToken(UUID.randomUUID().toString());
-					tokenRepository.save(passwordResetToken);
-					session.setAttribute("information", passwordResetToken);
-					MailUtil.mailSendToResetPassword(session, request);
-					logger.info("Mail send to this mail ==>>" + talentCandidateInformation.getUserName()+information.getEmailId());
-					return ResponseEntity.ok("mail send to your mailId check your mail and reset your password ..");
-				}
-				else {
-					return ResponseEntity.ok("mail Already send to your mailId check your mail and reset your password ..");
-				}
-					
-				 
-				}
-				else {
+					if (passwordResetToken.isExpired()) {
+						// tokenRepository.delete(passwordResetToken);
+						passwordResetToken.setExpiryDate(30);
+						passwordResetToken.setToken(UUID.randomUUID().toString());
+						tokenRepository.save(passwordResetToken);
+						session.setAttribute("information", passwordResetToken);
+						MailUtil.mailSendToResetPassword(session, request);
+						logger.info("Mail send to this mail ==>>" + talentCandidateInformation.getUserName()
+								+ information.getEmailId());
+						return ResponseEntity.ok("mail send to your mailId check your mail and reset your password ..");
+					} else {
+						return ResponseEntity
+								.ok("mail Already send to your mailId check your mail and reset your password ..");
+					}
+
+				} else {
 					tokenRepository.save(token);
 					session.setAttribute("information", token);
 					MailUtil.mailSendToResetPassword(session, request);
-					logger.info("Mail send to this mail ==>>" + talentCandidateInformation.getUserName()+information.getEmailId());
+					logger.info("Mail send to this mail ==>>" + talentCandidateInformation.getUserName()
+							+ information.getEmailId());
 					return ResponseEntity.ok("mail send to your mailId check your mail and reset your password ..");
 				}
-				 
-			       
-				
 
 			} else {
 				return new ResponseEntity("", HttpStatus.BAD_REQUEST);
@@ -424,14 +428,13 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-	
-//	@Operation(description = "updatePassword for candidate", responses = {
-//
-//	@ApiResponse(content = @Content(schema = @Schema(implementation = ResetPasswordDTO.class)), responseCode = "200"), })
-	 @ApiOperation(value = "RestPasswword ")
+	// @Operation(description = "updatePassword for candidate", responses = {
+	//
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// ResetPasswordDTO.class)), responseCode = "200"), })
+	@ApiOperation(value = "RestPasswword ")
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public ResponseEntity<Object> updatePassword(@RequestBody ResetPasswordDTO resetPasswordDTO
-			) {
+	public ResponseEntity<Object> updatePassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
 
 		try {
 			logger.info("updatePassword Method ==>>");
@@ -464,8 +467,7 @@ public class TalentPoolApplicationMainController {
 					}
 
 				}
-			}
-			else {
+			} else {
 				return new ResponseEntity("password not Update1", HttpStatus.BAD_REQUEST);
 			}
 
@@ -473,10 +475,10 @@ public class TalentPoolApplicationMainController {
 			System.out.println(e.getMessage());
 			return new ResponseEntity("password not Update2", HttpStatus.CONFLICT);
 		}
-		
 
 	}
-	 @ApiOperation(value = "Candidate Profile Details")
+
+	@ApiOperation(value = "Candidate Profile Details")
 	@RequestMapping(value = "/getCandidateProfileById", method = RequestMethod.GET)
 	public ArrayList getCandidateProfileById(@RequestParam("candidateUniqeId") String candidateUniqeId,
 			HttpSession session) {
@@ -501,12 +503,12 @@ public class TalentPoolApplicationMainController {
 		return null;
 	}
 
-//	@Operation(description = "candidate besic Information Update", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
-	 @ApiOperation(value = "Candidate Profile Update")
-	 @RequestMapping(value = "/candidateInformationUpdate", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateCandidateInformation(@RequestBody TalentCandidateInformation information
-			) {
+	// @Operation(description = "candidate besic Information Update", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
+	@ApiOperation(value = "Candidate Profile Update")
+	@RequestMapping(value = "/candidateInformationUpdate", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateCandidateInformation(@RequestBody TalentCandidateInformation information) {
 		TalentCandidateInformation information1 = null;
 		logger.info("updateCandidateInformation Method call ==>>");
 		try {
@@ -525,7 +527,7 @@ public class TalentPoolApplicationMainController {
 				information1.setIsVerify(information.getIsVerify());
 				information1.setPassword(information.getPassword());
 				information1.setUserName(information.getUserName());
-				/*information1.setCandidateId(information.getCandidateId());*/
+				/* information1.setCandidateId(information.getCandidateId()); */
 				information1.setUpdateDate(new Date());
 				information1 = talentPoolService.saveCandidateInformation(information1);
 				if (Objects.nonNull(information1)) {
@@ -542,13 +544,13 @@ public class TalentPoolApplicationMainController {
 		return new ResponseEntity("candidate besic Information not Update", HttpStatus.CONFLICT);
 	}
 
-//	@Operation(description = "Candidate Address Update", responses = {
-//	@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
-	
-	 @ApiOperation(value = "Candidate Address Update")
-	 @RequestMapping(value = "/candidateAddressUpdate", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateCandidateAddress(@RequestBody List<TalentCandidateAddress> address
-			) {
+	// @Operation(description = "Candidate Address Update", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
+
+	@ApiOperation(value = "Candidate Address Update")
+	@RequestMapping(value = "/candidateAddressUpdate", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateCandidateAddress(@RequestBody List<TalentCandidateAddress> address) {
 		try {
 			logger.info("updateCandidateAddress Method call ==>>");
 			TalentCandidateAddress addressNew = talentPoolService
@@ -577,11 +579,11 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Candidate ProjectDetailsUpdate ", responses = {
-//	@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
+	// @Operation(description = "Candidate ProjectDetailsUpdate ", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
 	@RequestMapping(value = "/candidateProjectDetailsUpdate", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateCandidateProjectDetails(@RequestBody TalentCandidateProjectDetails project
-			) {
+	public ResponseEntity<Object> updateCandidateProjectDetails(@RequestBody TalentCandidateProjectDetails project) {
 		logger.info("updateCandidateAddress Method call ==>>");
 		try {
 			TalentCandidateProjectDetails project1 = talentPoolService.findByCandidateProjectId(project.getProjectId());
@@ -602,7 +604,7 @@ public class TalentPoolApplicationMainController {
 					return ResponseEntity.ok("candidate ProjectDetails Update sussesfull");
 				} else {
 					return new ResponseEntity("candidate ProjectDetails Information not Update",
-					HttpStatus.BAD_REQUEST);
+							HttpStatus.BAD_REQUEST);
 				}
 			} else {
 				return new ResponseEntity("candidate ProjectDetails Information not Update", HttpStatus.BAD_REQUEST);
@@ -614,23 +616,23 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "Candidate EducationDetailsUpdate ", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
+	// @Operation(description = "Candidate EducationDetailsUpdate ", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
 	@RequestMapping(value = "/candidateEducationUpdate", method = RequestMethod.PUT)
-	public ResponseEntity<Object> candidateEducationUpdate(@RequestBody TalentEducationDetails education
-			) {
+	public ResponseEntity<Object> candidateEducationUpdate(@RequestBody TalentEducationDetails education) {
 		try {
 			TalentEducationDetails educationNew = talentPoolService.findEducationId(education.getEducationId());
 			logger.info("return candidateEducationDetails using candidateUniueId  ==>>");
 			if (Objects.nonNull(educationNew)) {
-				//educationNew.setCourseType(education.getCourseType());
+				// educationNew.setCourseType(education.getCourseType());
 				educationNew.setInstitution(education.getInstitution());
 				educationNew.setStartYear(education.getStartYear());
 				educationNew.setPercentage(education.getPercentage());
 				educationNew.setSubject(education.getSubject());
 				educationNew.setEndYear(education.getEndYear());
 				educationNew = talentPoolService.saveEducationDetail(educationNew);
-				
+
 				if (Objects.nonNull(educationNew)) {
 					logger.info("Update CanddateEducationdetails    ==>>");
 					return ResponseEntity.ok("candidate EducationDetails Update sussesfull");
@@ -646,8 +648,9 @@ public class TalentPoolApplicationMainController {
 		return new ResponseEntity("candidate EducationDetails not Update", HttpStatus.BAD_REQUEST);
 	}
 
-//	@Operation(description = "User Delete ", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
+	// @Operation(description = "User Delete ", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
 	@DeleteMapping(value = "/userDelete/{candidateUniqeId}")
 	public ResponseEntity<Object> deleteById(@RequestParam("candidateUniqeId") String candidateUniqeId) {
 		try {
@@ -668,15 +671,16 @@ public class TalentPoolApplicationMainController {
 
 	}
 
-//	@Operation(description = "searchCandidate ", responses = {
-//			@ApiResponse(content = @Content(schema = @Schema(implementation = TalentCandidateInformation.class)), responseCode = "200"), })
+	// @Operation(description = "searchCandidate ", responses = {
+	// @ApiResponse(content = @Content(schema = @Schema(implementation =
+	// TalentCandidateInformation.class)), responseCode = "200"), })
 	@RequestMapping(value = "/searchCandidate", method = RequestMethod.POST)
 	public ResponseEntity<Object> searchCandidate(@RequestBody TalentCandidateInformation candidateInformation,
 			HttpSession session) {
 		List<TalentCandidateInformation> listCandidateInformationSearch = null;
 		logger.info("Search candidate controller..");
 		try {
-			
+
 			listCandidateInformationSearch = talentPoolService.searchCandidateInfomation(candidateInformation);
 			System.out.println(listCandidateInformationSearch);
 			if (listCandidateInformationSearch.size() != 0) {
@@ -716,8 +720,7 @@ public class TalentPoolApplicationMainController {
 	 * }
 	 */
 	@RequestMapping(value = "/saveTalentQuestionAnswer", method = RequestMethod.POST)
-	public String saveQuestionAnswer(@RequestBody TalentQuestionAnswer answer
-			) {
+	public String saveQuestionAnswer(@RequestBody TalentQuestionAnswer answer) {
 		answer = talentPoolService.saveQuestionAnswer(answer);
 		if (Objects.nonNull(answer)) {
 			return "saveTalentQuestionAnswer save sussesfully";
@@ -726,44 +729,37 @@ public class TalentPoolApplicationMainController {
 		}
 
 	}
-	
-	
-		@RequestMapping(value = "/createPdf", method = RequestMethod.POST)
-		public String createPdf(@RequestParam("candidateUniqueId") String candidateUniqueId) throws FileNotFoundException, DocumentException {
-			TalentCandidateInformation talentCandidateInformation=talentPoolService.findByCandidateUniqueId(candidateUniqueId);
-			 java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH_mm_ss");
-			  //private static long time = sdf.getCalendar();
-			 System.out.println(talentCandidateInformation.getFirstName());
-			 String date=sdf.format(new Date());
-			 System.out.println(date);
-			//private static Timestamp ts = new Timestamp(time);
-			 String FILE = "c:/temp/Resume"+date+".pdf";
-		        try {
-		        	
-		            Document document = new Document();
-		            System.out.println("Date::"+date);
-		            System.out.println("file:"+FILE);
-		           
-		            
-		            PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(FILE));
-		            document.open();
-		           
-			
-		            pdfService .addMetaData(document,talentCandidateInformation);
-		            pdfService .addTitlePage(document,talentCandidateInformation,writer); 
-		           
-			 
-		            document.close();
-		        } 
-		        catch (NullPointerException ne) {
-					System.out.println(ne.getMessage());
-				}
-		    
-			return"Creatred";
+
+	@RequestMapping(value = "/createPdf", method = RequestMethod.POST)
+	public String createPdf(@RequestParam("candidateUniqueId") String candidateUniqueId)
+			throws FileNotFoundException, DocumentException {
+		TalentCandidateInformation talentCandidateInformation = talentPoolService
+				.findByCandidateUniqueId(candidateUniqueId);
+		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH_mm_ss");
+		// private static long time = sdf.getCalendar();
+		System.out.println(talentCandidateInformation.getFirstName());
+		String date = sdf.format(new Date());
+		System.out.println(date);
+		// private static Timestamp ts = new Timestamp(time);
+		String FILE = "c:/temp/Resume" + date + ".pdf";
+		try {
+
+			Document document = new Document();
+			System.out.println("Date::" + date);
+			System.out.println("file:" + FILE);
+
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			document.open();
+
+			pdfService.addMetaData(document, talentCandidateInformation);
+			pdfService.addTitlePage(document, talentCandidateInformation, writer);
+
+			document.close();
+		} catch (NullPointerException ne) {
+			System.out.println(ne.getMessage());
 		}
-		
-		
-	
-		
+
+		return "Creatred";
+	}
 
 }

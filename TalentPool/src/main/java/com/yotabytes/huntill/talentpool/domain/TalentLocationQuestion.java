@@ -15,19 +15,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity (name= "TalentLocationQuestion")
+@Entity(name = "TalentLocationQuestion")
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode 
+@EqualsAndHashCode
 @ToString
 @Getter
 @Setter
 public class TalentLocationQuestion {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int locationQuestionId;
 	private int locationId;
 	private Integer questionId;
@@ -35,45 +35,59 @@ public class TalentLocationQuestion {
 	private Date createdDate;
 	private String updateBy;
 	private Date updateDate;
+
 	public int getLocationQuestionId() {
 		return locationQuestionId;
 	}
+
 	public void setLocationQuestionId(int locationQuestionId) {
 		this.locationQuestionId = locationQuestionId;
 	}
+
 	public int getLocationId() {
 		return locationId;
 	}
+
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
+
 	public Integer getQuestionId() {
 		return questionId;
 	}
+
 	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
 	public String getUpdateBy() {
 		return updateBy;
 	}
+
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
+
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}

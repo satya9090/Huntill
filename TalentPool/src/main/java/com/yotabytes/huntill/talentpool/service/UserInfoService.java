@@ -12,8 +12,6 @@ import com.yotabytes.huntill.talentpool.domain.UserInfo;
 import com.yotabytes.huntill.talentpool.repository.CandidateInformationRepository;
 import com.yotabytes.huntill.talentpool.repository.UserDetailsRepository;
 
-
-
 @Repository
 @Transactional
 public class UserInfoService {

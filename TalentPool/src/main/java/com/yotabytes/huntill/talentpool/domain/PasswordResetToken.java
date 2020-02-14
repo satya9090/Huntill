@@ -12,21 +12,18 @@ import java.util.UUID;
 @Data
 public class PasswordResetToken {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(nullable = false, unique = true)
-    private String token;
-    
-	
-	  @Column(nullable = false,updatable = false) private String
-	  candidateUniqueId;
-	 
-	   
-	    @ManyToOne(fetch = FetchType.LAZY)
-    private TalentCandidateInformation talentCandidateInformation;
-    
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@Column(nullable = false, unique = true)
+	private String token;
+
+	@Column(nullable = false, updatable = false)
+	private String candidateUniqueId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private TalentCandidateInformation talentCandidateInformation;
+
 	/*
 	 * @OneToOne(targetEntity = TalentCandidateInformation.class, fetch =
 	 * FetchType.EAGER)
@@ -34,13 +31,12 @@ public class PasswordResetToken {
 	 * @JoinColumn(nullable = false, name = "candidate_unique_id") private
 	 * TalentCandidateInformation talentCandidateInformation;
 	 */
-	 
 
-    @Column(nullable = false)
-    private Date expiryDate;
-   
-    @Column(columnDefinition = "varchar(255) default 'N'")
-    private String isUpdate;
+	@Column(nullable = false)
+	private Date expiryDate;
+
+	@Column(columnDefinition = "varchar(255) default 'N'")
+	private String isUpdate;
 
 	/*
 	 * public TalentCandidateInformation getTalentCandidateInformation() { return
@@ -62,13 +58,17 @@ public class PasswordResetToken {
 		this.id = id;
 	}
 
+	public String getIsUpdate() {
+		return isUpdate;
+	}
+
+	public void setIsUpdate(String isUpdate) {
+		this.isUpdate = isUpdate;
+	}
+
 	public Long getId() {
-        return id;
-    }
-
-  
-
-   
+		return id;
+	}
 
 	/*
 	 * public User getUser() { return user; }
@@ -76,7 +76,7 @@ public class PasswordResetToken {
 	 * public void setUser(User user) { this.user = user; }
 	 */
 
-    public String getCandidateUniqueId() {
+	public String getCandidateUniqueId() {
 		return candidateUniqueId;
 	}
 
@@ -101,20 +101,20 @@ public class PasswordResetToken {
 	}
 
 	public Date getExpiryDate() {
-        return expiryDate;
-    }
+		return expiryDate;
+	}
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 
-    public void setExpiryDate(int minutes){
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.MINUTE, minutes);
-        this.expiryDate = now.getTime();
-    }
+	public void setExpiryDate(int minutes) {
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.MINUTE, minutes);
+		this.expiryDate = now.getTime();
+	}
 
-    public boolean isExpired() {
-        return new Date().after(this.expiryDate);
-    }
+	public boolean isExpired() {
+		return new Date().after(this.expiryDate);
+	}
 }
