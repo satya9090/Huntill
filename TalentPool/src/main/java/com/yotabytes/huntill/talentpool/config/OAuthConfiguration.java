@@ -97,7 +97,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 		  GrantType grantType = new AuthorizationCodeGrantBuilder()
 			        .tokenEndpoint(new TokenEndpoint(host + "/oauth/token", "oauthtoken"))
 			        .tokenRequestEndpoint(
-			          new TokenRequestEndpoint(host + "/oauth/authorize", "Huntill",passwordEncoder.encode("nucigent")))
+			          new TokenRequestEndpoint(host + "/oauth/login", "Huntill",passwordEncoder.encode("nucigent")))
 			        .build();
 			 
 			    SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")

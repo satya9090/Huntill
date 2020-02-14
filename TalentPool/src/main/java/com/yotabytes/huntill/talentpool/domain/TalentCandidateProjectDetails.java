@@ -35,9 +35,9 @@ public class TalentCandidateProjectDetails {
 	@NotEmpty(message = "Please enter project name")
 	private String projectName;
 	@NotEmpty(message = "Please enter Start Date")
-	private String startDate;
+	private Date startDate;
 
-	private String endDate;
+	private Date endDate;
 	@NotEmpty(message = "Please enter technologyUsed")
 	private String[] technologyUsed;
 	@NotEmpty(message = "Please enter project Details")
@@ -73,18 +73,8 @@ public class TalentCandidateProjectDetails {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+	
+	
 	
 	public String[] getTechnologyUsed() {
 		return technologyUsed;

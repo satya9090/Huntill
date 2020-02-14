@@ -30,6 +30,7 @@ public class TalentProfessionalDetails {
 	private String candidateUniqueId;
 	private String jobTitel;
 	private String company;
+	private String yearOfExperience;
 	private Date startDate;
 	private Date endDate;
 	private String description;

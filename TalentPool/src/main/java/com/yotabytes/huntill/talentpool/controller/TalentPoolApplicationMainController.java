@@ -555,7 +555,7 @@ public class TalentPoolApplicationMainController {
 					.findByCandidateAddressId(address.get(0).getAddressId());
 			addressNew.setType(address.get(0).getType());
 			addressNew.setCoutry(address.get(0).getCountry());
-			addressNew.setCity(address.get(0).getCity());
+			addressNew.setCurrentCity(address.get(0).getCurrentCity());
 			addressNew.setState(address.get(0).getState());
 			addressNew.setPincode(address.get(0).getPincode());
 			addressNew = talentPoolService.saveCandidateUpdateAddress(addressNew);
@@ -564,7 +564,7 @@ public class TalentPoolApplicationMainController {
 					.findByCandidateAddressId(address.get(1).getAddressId());
 			addressNew2.setType(address.get(1).getType());
 			addressNew2.setCoutry(address.get(1).getCountry());
-			addressNew2.setCity(address.get(1).getCity());
+			addressNew2.setCurrentCity(address.get(1).getCurrentCity());
 			addressNew2.setState(address.get(1).getState());
 			addressNew2.setPincode(address.get(1).getPincode());
 			addressNew2 = talentPoolService.saveCandidateUpdateAddress(addressNew2);
@@ -676,7 +676,7 @@ public class TalentPoolApplicationMainController {
 		List<TalentCandidateInformation> listCandidateInformationSearch = null;
 		logger.info("Search candidate controller..");
 		try {
-			System.out.println(candidateInformation.getCurrentLocation()+candidateInformation.getExperience());
+			
 			listCandidateInformationSearch = talentPoolService.searchCandidateInfomation(candidateInformation);
 			System.out.println(listCandidateInformationSearch);
 			if (listCandidateInformationSearch.size() != 0) {

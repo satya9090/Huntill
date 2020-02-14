@@ -74,9 +74,11 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 			information1.setAlternateEmailId(information.getAlternateEmailId());
 			information1.setRole(information.getRole());
 		//	information1.setDateOfBirth(information.getDateOfBirth());	
-			information1.setSkills(information.getSkills());
-			information1.setCurrentLocation(information.getCurrentLocation());
-			information1.setExperience(information.getExperience());
+			/*
+			 * information1.setSkills(information.getSkills());
+			 * information1.setCurrentLocation(information.getCurrentLocation());
+			 * information1.setExperience(information.getExperience());
+			 */
 			information1.setIsProfileComplete(information.getIsProfileComplete());
 			
 			return candidateInformationRepository.save(information1);
@@ -171,25 +173,27 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	{
 		return candidateAddressRepository.findByCandidateUniqueId(candidateUniqeId);
 	}
-	public List<TalentCandidateInformation> searchCandidateInfomation(TalentCandidateInformation candidateInformation)
-	{
-		return candidateInformationRepository.findAll(new Specification<TalentCandidateInformation>() {
-	           @Override
-	           public Predicate toPredicate(Root<TalentCandidateInformation> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-	               List<Predicate> predicates = new ArrayList<>();
-	               if(candidateInformation.getSkills()!=null) {
-	                   predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("skills"), "%"+candidateInformation.getSkills()+"%")));
-	               }
-	               if(candidateInformation.getCurrentLocation()!=null){
-	                   predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("currentLocation"), candidateInformation.getCurrentLocation())));
-	               }
-	               if(candidateInformation.getExperience()!=null){
-	                   predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("experience"), candidateInformation.getExperience())));
-	               }
-	               return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-	           }
-	       }); 
-	}
+
+	/*
+	 * public List<TalentCandidateInformation>
+	 * searchCandidateInfomation(TalentCandidateInformation candidateInformation) {
+	 * return candidateInformationRepository.findAll(new
+	 * Specification<TalentCandidateInformation>() {
+	 * 
+	 * @Override public Predicate toPredicate(Root<TalentCandidateInformation> root,
+	 * CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) { List<Predicate>
+	 * predicates = new ArrayList<>(); if(candidateInformation.getSkills()!=null) {
+	 * predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("skills"),
+	 * "%"+candidateInformation.getSkills()+"%"))); }
+	 * if(candidateInformation.getCurrentLocation()!=null){
+	 * predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get(
+	 * "currentLocation"), candidateInformation.getCurrentLocation()))); }
+	 * if(candidateInformation.getExperience()!=null){
+	 * predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get(
+	 * "experience"), candidateInformation.getExperience()))); } return
+	 * criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])); }
+	 * }); }
+	 */
 	/*public List<TalentCandidateSearch> findBySkillsAndCurrentLocationAndExperience(String skills, String currentLocation,
 			String experience)
 	{
@@ -235,5 +239,11 @@ public class TalentPoolServiceImpl implements TalentPoolService{
 	public Iterable<TalentProfessionalDetails> saveTalentExperienceDetails(List<TalentProfessionalDetails> talentExperience)
 	{
 		return candidateExperienceRepository.saveAll(talentExperience);
+	}
+
+	@Override
+	public List<TalentCandidateInformation> searchCandidateInfomation(TalentCandidateInformation candidateInformation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

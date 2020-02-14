@@ -67,9 +67,7 @@ public class TalentCandidateInformation {
 	private String alternateEmailId;
 	
 	private String gender;
-	private String skills;
-	private String currentLocation;
-	private Long experience;
+	
 	private String role;
 	private String isVerify="N";
 	private String isActive="Y";
@@ -182,18 +180,7 @@ public class TalentCandidateInformation {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getSkills() {
-		return skills;
-	}
-	public void setSkills(String skills) {
-		this.skills = skills;
-	}
-	public String getCurrentLocation() {
-		return currentLocation;
-	}
-	public void setCurrentLocation(String currentLocation) {
-		this.currentLocation = currentLocation;
-	}
+
 	
 	
 	public String getIsVerify() {

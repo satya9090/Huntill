@@ -32,8 +32,8 @@ public class TalentEducationDetails {
 	@NotEmpty(message = "Please enter Institute Name")
 	private String institution;
 	@NotEmpty(message = "Please enter Stating Year")
-	private String startYear;
-	private String endYear;
+	private Date startYear;
+	private Date endYear;
 	@NotEmpty(message = "Please enter Specification")
 	private String subject;
 	@NotEmpty(message = "Please enter Percentage")

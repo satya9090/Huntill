@@ -38,7 +38,7 @@ public class TalentCandidateAddress {
 	@NotEmpty(message = "Please enter State")
 	private String state;
 	@NotEmpty(message = "Please enter City")
-	private String city;
+	private String currentCity;
 	/* @NotEmpty(message = "Please enter Pincode") */
 	//@Size(max = 6)
 	private Integer pincode;
@@ -66,12 +66,7 @@ public class TalentCandidateAddress {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
+
 	public Integer getPincode() {
 		return pincode;
 	}

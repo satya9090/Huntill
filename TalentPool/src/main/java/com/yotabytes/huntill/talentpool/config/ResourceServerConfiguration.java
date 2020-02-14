@@ -26,7 +26,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		/*
 		 * http.antMatcher("/**") .authorizeRequests().anyRequest().authenticated();
 		 */
-    	http.csrf().disable().authorizeRequests().antMatchers("/api/v1/createUser","/api/v1/verifyEmail","/api/v1/forgotPassword","/swagger-ui.html","/api/v1/updatePassword","/api/v1/resetPassword","/#/auth/reset-password","/api/v1/createPdf").permitAll().anyRequest().authenticated();
+    	http.csrf().disable().authorizeRequests().antMatchers("/api/v1/createUser","/api/v1/verifyEmail","/api/v1/forgotPassword","/swagger-ui.html","/api/v1/updatePassword","/api/v1/resetPassword","/#/auth/reset-password","/api/v1/createPdf","/oauth/login").permitAll().anyRequest().authenticated();
     }
 }
 
