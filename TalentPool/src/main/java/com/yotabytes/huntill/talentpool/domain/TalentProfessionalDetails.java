@@ -25,107 +25,107 @@ import lombok.ToString;
 @Setter
 public class TalentProfessionalDetails {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int experienceId;
-	private String candidateUniqueId;
-	private String jobTitel;
-	private String company;
-	private String yearOfExperience;
-	private Date startDate;
-	private Date endDate;
-	private String description;
-	private String createdBy;
-	private Date createdDate;
-	private String updateBy;
-	private Date updateDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int experienceId;
+    private String candidateUniqueId;
+    private String jobTitle;
+    private String company;
+    private String yearOfExperience;
+    private Date startDate;
+    private Date endDate;
+    private String description;
+    private String createdBy;
+    private Date createdDate;
+    private String updateBy;
+    private Date updateDate;
 
-	public int getExperienceId() {
-		return experienceId;
-	}
+    public int getExperienceId() {
+        return experienceId;
+    }
 
-	public void setExperienceId(int experienceId) {
-		this.experienceId = experienceId;
-	}
+    public void setExperienceId(int experienceId) {
+        this.experienceId = experienceId;
+    }
 
-	public String getCandidateUniqueId() {
-		return candidateUniqueId;
-	}
+    public String getCandidateUniqueId() {
+        return candidateUniqueId;
+    }
 
-	public void setCandidateUniqueId(String candidateUniqueId) {
-		this.candidateUniqueId = candidateUniqueId;
-	}
+    public void setCandidateUniqueId(String candidateUniqueId) {
+        this.candidateUniqueId = candidateUniqueId;
+    }
 
-	public String getJobTitel() {
-		return jobTitel;
-	}
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-	public void setJobTitel(String jobTitel) {
-		this.jobTitel = jobTitel;
-	}
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-	public String getCompany() {
-		return company;
-	}
+    public String getCompany() {
+        return company;
+    }
 
-	public void setCompany(String company) {
-		this.company = company;
-	}
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
-	public Date getStartDate() {
-		return startDate;
-	}
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public String getUpdateBy() {
-		return updateBy;
-	}
+    public String getUpdateBy() {
+        return updateBy;
+    }
 
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
-	}
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
 
-	public Date getUpdateDate() {
-		return updateDate;
-	}
+    public Date getUpdateDate() {
+        return updateDate;
+    }
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
 
 }

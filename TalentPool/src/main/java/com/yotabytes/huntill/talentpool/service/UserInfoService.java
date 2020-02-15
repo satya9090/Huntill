@@ -17,7 +17,7 @@ import com.yotabytes.huntill.talentpool.repository.UserDetailsRepository;
 public class UserInfoService {
 
 	@Autowired
-	private UserDetailsRepository userDatailsRepository;
+	private UserDetailsRepository userDetailsRepository;
 	@Autowired
 	private CandidateInformationRepository candidateInformationRepository;
 
@@ -27,40 +27,40 @@ public class UserInfoService {
 	}
 
 	public List<UserInfo> getAllActiveUserInfo() {
-		return userDatailsRepository.findAllByEnabled((short) 1);
+		return userDetailsRepository.findAllByEnabled((short) 1);
 	}
 
 	public UserInfo getUserInfoById(Integer id) {
-		return userDatailsRepository.findById(id);
+		return userDetailsRepository.findById(id);
 	}
 
 	public UserInfo addUser(UserInfo userInfo) {
 		userInfo.setPassword(new BCryptPasswordEncoder().encode(userInfo.getPassword()));
-		return userDatailsRepository.save(userInfo);
+		return userDetailsRepository.save(userInfo);
 	}
 
 	public UserInfo updateUser(Integer id, UserInfo userRecord) {
-		UserInfo userInfo = userDatailsRepository.findById(id);
+		UserInfo userInfo = userDetailsRepository.findById(id);
 		userInfo.setUserName(userRecord.getUserName());
 		userInfo.setPassword(userRecord.getPassword());
 		userInfo.setRole(userRecord.getRole());
 		userInfo.setEnabled(userRecord.getEnabled());
-		return userDatailsRepository.save(userInfo);
+		return userDetailsRepository.save(userInfo);
 	}
 
 	public void deleteUser(Integer id) {
-		userDatailsRepository.deleteById(id);
+		userDetailsRepository.deleteById(id);
 	}
 
 	public UserInfo updatePassword(Integer id, UserInfo userRecord) {
-		UserInfo userInfo = userDatailsRepository.findById(id);
+		UserInfo userInfo = userDetailsRepository.findById(id);
 		userInfo.setPassword(userRecord.getPassword());
-		return userDatailsRepository.save(userInfo);
+		return userDetailsRepository.save(userInfo);
 	}
 
 	public UserInfo updateRole(Integer id, UserInfo userRecord) {
-		UserInfo userInfo = userDatailsRepository.findById(id);
+		UserInfo userInfo = userDetailsRepository.findById(id);
 		userInfo.setRole(userRecord.getRole());
-		return userDatailsRepository.save(userInfo);
+		return userDetailsRepository.save(userInfo);
 	}
 }

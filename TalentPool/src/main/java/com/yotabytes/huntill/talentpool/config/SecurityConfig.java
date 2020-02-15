@@ -16,62 +16,61 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.yotabytes.huntill.talentpool.service.UserDetailsServiceImpl;
 
 
-
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	UserDetailsServiceImpl userDetailsService;
-	
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 	
-		.and().authorizeRequests().antMatchers("/oauth/token","/user")
-		.permitAll().anyRequest().authenticated()
-		;
-	}
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder( bCryptPasswordEncoder());
-		provider.setUserDetailsService(userDetailsService);
-		return provider;
-	}
-	
-	/*
-	 * @Autowired public void globalUserDetails(AuthenticationManagerBuilder auth)
-	 * throws Exception { auth.inMemoryAuthentication()
-	 * .withUser("bill").password("abc123").roles("ADMIN").and()
-	 * .withUser("bob").password("abc123").roles("USER"); }
-	 */
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests().antMatchers("/oauth/token", "/user")
+                .permitAll().anyRequest().authenticated()
+        ;
+    }
 
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setUserDetailsService(userDetailsService);
+        return provider;
+    }
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
-	
-	 @Override
-	    public void configure(WebSecurity web) {
-	        web.ignoring().antMatchers(
-	                "/v2/api-docs",
-	                "/configuration/ui/**",
-	                "/swagger-resources/**",
-	                "/configuration/security/**",
-	                "/swagger-ui.html",
-	                "/webjars/**");
-	    }
+    /*
+     * @Autowired public void globalUserDetails(AuthenticationManagerBuilder auth)
+     * throws Exception { auth.inMemoryAuthentication()
+     * .withUser("bill").password("abc123").roles("ADMIN").and()
+     * .withUser("bob").password("abc123").roles("USER"); }
+     */
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/configuration/ui/**",
+                "/swagger-resources/**",
+                "/configuration/security/**",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }
 }

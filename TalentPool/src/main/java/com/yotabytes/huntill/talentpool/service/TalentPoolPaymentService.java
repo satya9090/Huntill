@@ -2,17 +2,17 @@ package com.yotabytes.huntill.talentpool.service;
 
 import org.springframework.stereotype.Service;
 
-import com.yotabytes.huntill.talentpool.domain.TalentPointManagment;
+import com.yotabytes.huntill.talentpool.domain.TalentPointManagement;
 
 @Service
 public interface TalentPoolPaymentService {
 
-	TalentPointManagment savePoint(TalentPointManagment pointManagment);
+	TalentPointManagement savePoint(TalentPointManagement pointManagement);
 
-	TalentPointManagment findByCandidateUniqueId(String candidateUniqueId);
+	TalentPointManagement findByCandidateUniqueId(String candidateUniqueId);
 
-	TalentPointManagment updatePoint(TalentPointManagment talentPointManagment1);
+	TalentPointManagement updatePoint(TalentPointManagement talentPointManagement1);
 
-	TalentPointManagment removePoint(TalentPointManagment talentPointManagment1);
+	TalentPointManagement removePoint(TalentPointManagement talentPointManagement1);
 
 }

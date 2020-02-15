@@ -29,14 +29,14 @@ public interface TalentPoolService {
 	public TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password,
 			String isActive);
 
-	public TalentCandidateInformation findByCandidateUniqeId(String candidateUniqeId);
+	public TalentCandidateInformation findCandidateInformation(String candidateUniqueId);
 
 	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId);
-	/* public CandidateInformation save(String encriptedPassword); */
+	/* public CandidateInformation save(String encryptedPassword); */
 
-	public TalentCandidateProjectDetails findByCandidateUniqeid(String candidateUniqeId);
+	public TalentCandidateProjectDetails findProjectDetails(String candidateUniqueId);
 
-	public TalentCandidateAddress findByCandidateUniqeIdFromCandidateAddress(String candidateUniqeId);
+	public TalentCandidateAddress findByCandidateUniqueIdFromCandidateAddress(String candidateUniqueId);
 
 	public TalentQuestionAnswer saveQuestionAnswer(TalentQuestionAnswer answer);
 
@@ -44,7 +44,7 @@ public interface TalentPoolService {
 
 	public Iterable<TalentEducationDetails> saveEducationDetails(Iterable<TalentEducationDetails> educationDetails);
 
-	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqeId);
+	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqueId);
 
 	public TalentCandidateAddress findByCandidateAddressId(int addressId);
 
@@ -60,7 +60,7 @@ public interface TalentPoolService {
 
 	public TalentCandidateInformation saveCandidateInformationProfiles(TalentCandidateInformation information1);
 
-	public List<TalentCandidateInformation> searchCandidateInfomation(TalentCandidateInformation candidateInformation);
+	public List<TalentCandidateInformation> searchCandidateInformation(TalentCandidateInformation candidateInformation);
 
 	public TalentCandidateInformation findByUserName(String name);
 

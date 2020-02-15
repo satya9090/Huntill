@@ -108,7 +108,7 @@ public class TalentPoolServiceImpl implements TalentPoolService {
 	}
 
 	public TalentCandidateProjectDetails findByCandidateProjectId(int projectId) {
-		return candidateProjectDetailsRepository.findByprojectId(projectId);
+		return candidateProjectDetailsRepository.findByProjectId(projectId);
 	}
 
 	public Iterable<TalentEducationDetails> saveEducationDetails(Iterable<TalentEducationDetails> educationDetails) {
@@ -141,28 +141,30 @@ public class TalentPoolServiceImpl implements TalentPoolService {
 		return candidateInformationRepository.findByUserNameAndPasswordAndIsActive(username, password, isActive);
 	}
 
-	public TalentCandidateInformation findByCandidateUniqeId(String candidateUniqeId) {
-		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqeId);
+	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId) {
+		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqueId);
 	}
-
+	public TalentCandidateInformation findCandidateInformation(String candidateUniqueId) {
+		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqueId);
+	}
 	/*
-	 * public CandidateInformation save(String encriptedPassword) { return null; }
+	 * public CandidateInformation save(String encryptedPassword) { return null; }
 	 */
-	public TalentCandidateProjectDetails findByCandidateUniqeid(String candidateUniqeId) {
-		return candidateProjectDetailsRepository.findBycandidateUniqueId(candidateUniqeId);
+	public TalentCandidateProjectDetails findProjectDetails(String candidateUniqueId) {
+		return candidateProjectDetailsRepository.findByCandidateUniqueId(candidateUniqueId);
 	}
 
-	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqeId) {
-		return candidateEducationRepository.findByCandidateUniqueId(candidateUniqeId);
+	public TalentEducationDetails findByCandidateEducationDetails(String candidateUniqueId) {
+		return candidateEducationRepository.findByCandidateUniqueId(candidateUniqueId);
 	}
 
-	public TalentCandidateAddress findByCandidateUniqeIdFromCandidateAddress(String candidateUniqeId) {
-		return candidateAddressRepository.findByCandidateUniqueId(candidateUniqeId);
+	public TalentCandidateAddress findByCandidateUniqueIdFromCandidateAddress(String candidateUniqueId) {
+		return candidateAddressRepository.findByCandidateUniqueId(candidateUniqueId);
 	}
 
 	/*
 	 * public List<TalentCandidateInformation>
-	 * searchCandidateInfomation(TalentCandidateInformation candidateInformation) {
+	 * searchCandidateInformation(TalentCandidateInformation candidateInformation) {
 	 * return candidateInformationRepository.findAll(new
 	 * Specification<TalentCandidateInformation>() {
 	 * 
@@ -191,9 +193,7 @@ public class TalentPoolServiceImpl implements TalentPoolService {
 		return talentQuestionAnswerRepository.save(answer);
 	}
 
-	public TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId) {
-		return candidateInformationRepository.findByCandidateUniqueId(candidateUniqueId);
-	}
+
 
 	@Override
 	public TalentCandidateInformation findByUserName(String name) {
@@ -228,7 +228,7 @@ public class TalentPoolServiceImpl implements TalentPoolService {
 	}
 
 	@Override
-	public List<TalentCandidateInformation> searchCandidateInfomation(TalentCandidateInformation candidateInformation) {
+	public List<TalentCandidateInformation> searchCandidateInformation(TalentCandidateInformation candidateInformation) {
 		// TODO Auto-generated method stub
 		return null;
 	}

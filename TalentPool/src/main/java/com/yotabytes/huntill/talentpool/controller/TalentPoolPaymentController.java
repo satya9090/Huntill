@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yotabytes.huntill.talentpool.domain.TalentPointManagment;
+import com.yotabytes.huntill.talentpool.domain.TalentPointManagement;
 import com.yotabytes.huntill.talentpool.service.TalentPoolPaymentService;
 import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 
@@ -23,86 +23,86 @@ import com.yotabytes.huntill.talentpool.service.TalentPoolService;
 @RequestMapping("/api/v2/")
 public class TalentPoolPaymentController {
 
-	final static Logger logger = Logger.getLogger(TalentPoolPaymentController.class);
+    final static Logger logger = Logger.getLogger(TalentPoolPaymentController.class);
 
-	@Autowired
-	private TalentPoolPaymentService paymentService;
+    @Autowired
+    private TalentPoolPaymentService paymentService;
 
-	// @Operation(description = "add point", responses = {
-	// @ApiResponse(content = @Content(schema = @Schema(implementation =
-	// TalentPointManagment.class)), responseCode = "200"), })
-	@RequestMapping(value = "/addPoint", method = RequestMethod.POST)
-	public ResponseEntity<Object> addPoint(@RequestBody TalentPointManagment pointManagment, HttpSession session) {
-		logger.info("inside addPoint mapping ==>> ");
-		try {
-			TalentPointManagment talentPointManagment = paymentService.savePoint(pointManagment);
-			if (Objects.nonNull(talentPointManagment)) {
-				logger.info("inside addPoint mapping save generatedPoint ==>>sucssesful ");
-				return ResponseEntity.ok("Add point Save");
-			}
-			return new ResponseEntity("Add point save Failed", HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return new ResponseEntity("Add point save Failed", HttpStatus.BAD_REQUEST);
-	}
+    // @Operation(description = "add point", responses = {
+    // @ApiResponse(content = @Content(schema = @Schema(implementation =
+    // TalentPointManagement.class)), responseCode = "200"), })
+    @RequestMapping(value = "/addPoint", method = RequestMethod.POST)
+    public ResponseEntity<Object> addPoint(@RequestBody TalentPointManagement pointManagement, HttpSession session) {
+        logger.info("inside addPoint mapping ==>> ");
+        try {
+            TalentPointManagement talentPointManagement = paymentService.savePoint(pointManagement);
+            if (Objects.nonNull(talentPointManagement)) {
+                logger.info("inside addPoint mapping save generatedPoint ==>>successful ");
+                return ResponseEntity.ok("Add point Save");
+            }
+            return new ResponseEntity("Add point save Failed", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity("Add point save Failed", HttpStatus.BAD_REQUEST);
+    }
 
-	// @Operation(description = "update point", responses = {
-	// @ApiResponse(content = @Content(schema = @Schema(implementation =
-	// TalentPointManagment.class)), responseCode = "200"), })
-	@RequestMapping(value = "/updatePoint", method = RequestMethod.POST)
-	public ResponseEntity<Object> updatePoint(@RequestBody TalentPointManagment pointManagment, HttpSession session) {
-		logger.info("inside updatePoint mapping ==>> ");
+    // @Operation(description = "update point", responses = {
+    // @ApiResponse(content = @Content(schema = @Schema(implementation =
+    // TalentPointManagement.class)), responseCode = "200"), })
+    @RequestMapping(value = "/updatePoint", method = RequestMethod.POST)
+    public ResponseEntity<Object> updatePoint(@RequestBody TalentPointManagement pointManagement, HttpSession session) {
+        logger.info("inside updatePoint mapping ==>> ");
 
-		try {
-			TalentPointManagment talentPointManagment1 = paymentService
-					.findByCandidateUniqueId(pointManagment.getCandidateUniqueId());
+        try {
+            TalentPointManagement talentPointManagement1 = paymentService
+                    .findByCandidateUniqueId(pointManagement.getCandidateUniqueId());
 
-			if (Objects.nonNull(talentPointManagment1)) {
-				talentPointManagment1.setDollar(pointManagment.getDollar());
-				talentPointManagment1.setTransactionType(pointManagment.getTransactionType());
-				pointManagment = paymentService.updatePoint(talentPointManagment1);
-				if (Objects.nonNull(pointManagment)) {
-					logger.info("inside updatePoint mapping save generatedPoint ==>>sucssesful ");
-					return ResponseEntity.ok("update point Save");
-				}
-				return new ResponseEntity("update point  Failed", HttpStatus.BAD_REQUEST);
-			}
-			return new ResponseEntity("CandidateUniqueId not present..", HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return new ResponseEntity("update point  Failed", HttpStatus.BAD_REQUEST);
-	}
+            if (Objects.nonNull(talentPointManagement1)) {
+                talentPointManagement1.setDollar(pointManagement.getDollar());
+                talentPointManagement1.setTransactionType(pointManagement.getTransactionType());
+                pointManagement = paymentService.updatePoint(talentPointManagement1);
+                if (Objects.nonNull(pointManagement)) {
+                    logger.info("inside updatePoint mapping save generatedPoint ==>>successful ");
+                    return ResponseEntity.ok("update point Save");
+                }
+                return new ResponseEntity("update point  Failed", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity("CandidateUniqueId not present..", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity("update point  Failed", HttpStatus.BAD_REQUEST);
+    }
 
-	// @Operation(description = "Remove point", responses = {
-	// @ApiResponse(content = @Content(schema = @Schema(implementation =
-	// TalentPointManagment.class)), responseCode = "200"), })
-	@RequestMapping(value = "/removePoint", method = RequestMethod.POST)
-	public ResponseEntity<Object> removePoint(@RequestBody TalentPointManagment pointManagment, HttpSession session) {
-		logger.info("inside removePoint mapping ==>> ");
+    // @Operation(description = "Remove point", responses = {
+    // @ApiResponse(content = @Content(schema = @Schema(implementation =
+    // TalentPointManagement.class)), responseCode = "200"), })
+    @RequestMapping(value = "/removePoint", method = RequestMethod.POST)
+    public ResponseEntity<Object> removePoint(@RequestBody TalentPointManagement pointManagment, HttpSession session) {
+        logger.info("inside removePoint mapping ==>> ");
 
-		try {
-			TalentPointManagment talentPointManagment1 = paymentService
-					.findByCandidateUniqueId(pointManagment.getCandidateUniqueId());
-			logger.info(talentPointManagment1.getCurrentAvailablePoint() + talentPointManagment1.getCandidateUniqueId()
-					+ talentPointManagment1.getResume() + talentPointManagment1.getTransactionType());
+        try {
+            TalentPointManagement talentPointManagement1 = paymentService
+                    .findByCandidateUniqueId(pointManagment.getCandidateUniqueId());
+            logger.info(talentPointManagement1.getCurrentAvailablePoint() + talentPointManagement1.getCandidateUniqueId()
+                    + talentPointManagement1.getResume() + talentPointManagement1.getTransactionType());
 
-			if (Objects.nonNull(talentPointManagment1)) {
-				talentPointManagment1.setResume(pointManagment.getResume());
-				talentPointManagment1.setTransactionType(pointManagment.getTransactionType());
+            if (Objects.nonNull(talentPointManagement1)) {
+                talentPointManagement1.setResume(pointManagment.getResume());
+                talentPointManagement1.setTransactionType(pointManagment.getTransactionType());
 
-				pointManagment = paymentService.removePoint(talentPointManagment1);
-				if (Objects.nonNull(pointManagment)) {
-					logger.info("inside removePoint mapping remove generatedPoint ==>>sucssesful ");
-					return ResponseEntity.ok("resume downlode sussesfully");
-				}
-				return new ResponseEntity("resume downlode   Failed", HttpStatus.BAD_REQUEST);
-			}
-			return new ResponseEntity("CandidateUniqueId not present..", HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return new ResponseEntity("resume downlode sussesfully  Failed", HttpStatus.BAD_REQUEST);
-	}
+                pointManagment = paymentService.removePoint(talentPointManagement1);
+                if (Objects.nonNull(pointManagment)) {
+                    logger.info("inside removePoint mapping remove generatedPoint ==>>successful ");
+                    return ResponseEntity.ok("resume download successfully");
+                }
+                return new ResponseEntity("resume download   Failed", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity("CandidateUniqueId not present..", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity("resume download successfully  Failed", HttpStatus.BAD_REQUEST);
+    }
 }

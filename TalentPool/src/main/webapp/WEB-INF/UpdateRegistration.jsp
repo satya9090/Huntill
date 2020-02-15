@@ -414,11 +414,11 @@
 
 								reader.onload = function(e) {
 									$('.avatar').attr('src', e.target.result);
-								}
+								};
 
 								reader.readAsDataURL(input.files[0]);
 							}
-						}
+						};
 
 						$(".file-upload").on('change', function() {
 							readURL(this);

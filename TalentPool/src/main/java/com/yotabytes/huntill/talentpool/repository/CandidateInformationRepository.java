@@ -14,7 +14,7 @@ public interface CandidateInformationRepository extends CrudRepository<TalentCan
 
 	TalentCandidateInformation findByEmailId(String email);
 
-	TalentCandidateInformation findByCandidateUniqueId(String candidateUniqeId);
+	TalentCandidateInformation findByCandidateUniqueId(String candidateUniqueId);
 
 	TalentCandidateInformation findByUserNameAndPasswordAndIsActive(String username, String password, String isActive);
 
@@ -22,7 +22,7 @@ public interface CandidateInformationRepository extends CrudRepository<TalentCan
 
 	TalentCandidateInformation findByUserNameAndIsActive(String userName, String isActive);
 
-	/*List<TalentCandidateInformation> searchCandidateInfomation(TalentCandidateInformation candidateInformation)
+	/*List<TalentCandidateInformation> searchCandidateInformation(TalentCandidateInformation candidateInformation)
 	{
 		 Query q = getEntityManager().createQuery()
 	}*/

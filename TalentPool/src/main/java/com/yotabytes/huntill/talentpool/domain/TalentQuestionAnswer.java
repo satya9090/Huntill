@@ -27,7 +27,7 @@ public class TalentQuestionAnswer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String candidateUniqueid;
+	private String candidateUniqueId;
 	private Integer questionId;
 	private String questionAnswer;
 	private String answerValue;
@@ -42,11 +42,11 @@ public class TalentQuestionAnswer {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getCandidateUniqueid() {
-		return candidateUniqueid;
+	public String getCandidateUniqueId() {
+		return candidateUniqueId;
 	}
-	public void setCandidateUniqueid(String candidateUniqueid) {
-		this.candidateUniqueid = candidateUniqueid;
+	public void setCandidateUniqueId(String candidateUniqueId) {
+		this.candidateUniqueId = candidateUniqueId;
 	}
 	public Integer getQuestionId() {
 		return questionId;

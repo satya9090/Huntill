@@ -36,84 +36,86 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 @Configuration
 @EnableAuthorizationServer
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
-	 @Value("${host}")
-	    private String host;
-	@Autowired
-	@Qualifier("authenticationManagerBean")
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
-	UserDetailsService userDetailsService;
-	@Autowired
-   private PasswordEncoder  passwordEncoder;
-	@Override
-	public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-	}
+    @Value("${host}")
+    private String host;
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-		.withClient("Huntill").secret(passwordEncoder.encode("nucigent"))
-		.authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("read","write")
-		.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER","ADMIN")
-		.autoApprove(true)
-		.accessTokenValiditySeconds(3600)//Access token is only valid for 3 minutes.
-        .refreshTokenValiditySeconds(600);//Refresh token is only valid for 10 minutes.;
-	}
+    @Autowired
+    UserDetailsService userDetailsService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient("Huntill").secret(passwordEncoder.encode("nucigent"))
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("read", "write")
+                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER", "ADMIN")
+                .autoApprove(true)
+                .accessTokenValiditySeconds(3600)//Access token is only valid for 3 minutes.
+                .refreshTokenValiditySeconds(600);//Refresh token is only valid for 10 minutes.;
+    }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    	endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager).accessTokenConverter(defaultAccessTokenConverter())
-    	.userDetailsService(userDetailsService);
+        endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager).accessTokenConverter(defaultAccessTokenConverter())
+                .userDetailsService(userDetailsService);
     }
 
-	@Bean
-	public TokenStore tokenStore(){
-		return new JwtTokenStore(defaultAccessTokenConverter());	
-	}
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(defaultAccessTokenConverter());
+    }
 
-	@Bean
-	public JwtAccessTokenConverter defaultAccessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey("123");
-		return converter;
-	}
-	
-	 private AuthorizationScope[] scopes() {
-	        AuthorizationScope[] scopes = {
-	                new AuthorizationScope("read", "for read operations"),
-	                new AuthorizationScope("write", "for write operations")
-	        };
+    @Bean
+    public JwtAccessTokenConverter defaultAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        return converter;
+    }
 
-	        return scopes;
-	 }
-	 private List<SecurityReference> securityReferences() {
-	        return Lists.newArrayList(new SecurityReference("spring_oauth", scopes()));
-	    }
-	 
-	  @Bean
-	    public SecurityScheme securityScheme() {
-		  GrantType grantType = new AuthorizationCodeGrantBuilder()
-			        .tokenEndpoint(new TokenEndpoint(host + "/oauth/token", "oauthtoken"))
-			        .tokenRequestEndpoint(
-			          new TokenRequestEndpoint(host + "/oauth/login", "Huntill",passwordEncoder.encode("nucigent")))
-			        .build();
-			 
-			    SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
-			        .grantTypes(Arrays.asList(grantType))
-			        .scopes(Arrays.asList(scopes()))
-			        .build();
-			    return oauth;
-	       
-	    }
+    private AuthorizationScope[] scopes() {
+        AuthorizationScope[] scopes = {
+                new AuthorizationScope("read", "for read operations"),
+                new AuthorizationScope("write", "for write operations")
+        };
 
-	    @Bean
-	    public SecurityContext securityContext() {
-	        return SecurityContext.builder()
-	                .securityReferences(securityReferences())
-	                .forPaths(Predicates.alwaysTrue())
-	                .build();
-	    }
-	
+        return scopes;
+    }
+
+    private List<SecurityReference> securityReferences() {
+        return Lists.newArrayList(new SecurityReference("spring_oauth", scopes()));
+    }
+
+    @Bean
+    public SecurityScheme securityScheme() {
+        GrantType grantType = new AuthorizationCodeGrantBuilder()
+                .tokenEndpoint(new TokenEndpoint(host + "/oauth/token", "oauthtoken"))
+                .tokenRequestEndpoint(
+                        new TokenRequestEndpoint(host + "/oauth/login", "Huntill", passwordEncoder.encode("nucigent")))
+                .build();
+
+        SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
+                .grantTypes(Arrays.asList(grantType))
+                .scopes(Arrays.asList(scopes()))
+                .build();
+        return oauth;
+
+    }
+
+    @Bean
+    public SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(securityReferences())
+                .forPaths(Predicates.alwaysTrue())
+                .build();
+    }
+
 }
