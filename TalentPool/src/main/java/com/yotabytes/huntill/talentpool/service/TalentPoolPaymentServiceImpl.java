@@ -10,7 +10,7 @@ import com.yotabytes.huntill.talentpool.domain.TalentPointManagement;
 import com.yotabytes.huntill.talentpool.repository.CandidateAuditManagementRepository;
 import com.yotabytes.huntill.talentpool.repository.TalentPointManagementRepository;
 import com.yotabytes.huntill.talentpool.service.TalentPoolPaymentService;
-import com.yotabytes.huntill.talentpool.utils.PointManagment;
+import com.yotabytes.huntill.talentpool.utils.PointManagement;
 
 @Service
 public class TalentPoolPaymentServiceImpl implements TalentPoolPaymentService {
@@ -26,7 +26,7 @@ public class TalentPoolPaymentServiceImpl implements TalentPoolPaymentService {
 		try {
 			TalentAuditPointManagement auditPoint = new TalentAuditPointManagement();
 			auditPoint.setCandidateUniqueId(pointManagement.getCandidateUniqueId());
-			auditPoint.setAddPoint(pointManagement.getDollar() * PointManagment.dollar);
+			auditPoint.setAddPoint(pointManagement.getDollar() * PointManagement.dollar);
 			auditPoint.setTransactionType(pointManagement.getTransactionType());
 			auditPoint.setCreatedDate(new Date());
 			auditManagementRepository.save(auditPoint);
@@ -44,7 +44,7 @@ public class TalentPoolPaymentServiceImpl implements TalentPoolPaymentService {
 		try {
 			TalentAuditPointManagement auditPoint = new TalentAuditPointManagement();
 			auditPoint.setCandidateUniqueId(talentPointManagement1.getCandidateUniqueId());
-			auditPoint.setUpdatePoint(talentPointManagement1.getDollar() * PointManagment.dollar);
+			auditPoint.setUpdatePoint(talentPointManagement1.getDollar() * PointManagement.dollar);
 			auditPoint.setTransactionType(talentPointManagement1.getTransactionType());
 			auditPoint.setUpdateDate(new Date());
 			auditManagementRepository.save(auditPoint);
@@ -62,12 +62,12 @@ public class TalentPoolPaymentServiceImpl implements TalentPoolPaymentService {
 		try {
 
 			if ((talentPointManagement1.getCurrentAvailablePoint()) > (talentPointManagement1.getResume()
-					* PointManagment.Rusume)) {
+					* PointManagement.Rusume)) {
 				System.out.println(talentPointManagement1.getCandidateUniqueId() + talentPointManagement1.getResume()
 						+ talentPointManagement1.getTransactionType());
 				TalentAuditPointManagement auditPoint = new TalentAuditPointManagement();
 				auditPoint.setCandidateUniqueId(talentPointManagement1.getCandidateUniqueId());
-				auditPoint.setRemovePoint(talentPointManagement1.getResume() * PointManagment.Rusume);
+				auditPoint.setRemovePoint(talentPointManagement1.getResume() * PointManagement.Rusume);
 				auditPoint.setTransactionType(talentPointManagement1.getTransactionType());
 				auditPoint.setUpdateDate(new Date());
 				auditManagementRepository.save(auditPoint);

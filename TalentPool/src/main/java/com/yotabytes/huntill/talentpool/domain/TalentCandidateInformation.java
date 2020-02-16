@@ -98,6 +98,10 @@ public class TalentCandidateInformation {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "candidateUniqueId")
+	private List<TalentProfessionalDetails> professionalDetails;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "candidateUniqueId")
 	private List<TalentCandidateAddress> address;
 
 	@OneToMany(cascade = CascadeType.ALL)

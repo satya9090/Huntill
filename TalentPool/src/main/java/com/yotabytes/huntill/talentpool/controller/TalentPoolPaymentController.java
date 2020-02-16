@@ -79,21 +79,21 @@ public class TalentPoolPaymentController {
     // @ApiResponse(content = @Content(schema = @Schema(implementation =
     // TalentPointManagement.class)), responseCode = "200"), })
     @RequestMapping(value = "/removePoint", method = RequestMethod.POST)
-    public ResponseEntity<Object> removePoint(@RequestBody TalentPointManagement pointManagment, HttpSession session) {
+    public ResponseEntity<Object> removePoint(@RequestBody TalentPointManagement pointManagement, HttpSession session) {
         logger.info("inside removePoint mapping ==>> ");
 
         try {
             TalentPointManagement talentPointManagement1 = paymentService
-                    .findByCandidateUniqueId(pointManagment.getCandidateUniqueId());
+                    .findByCandidateUniqueId(pointManagement.getCandidateUniqueId());
             logger.info(talentPointManagement1.getCurrentAvailablePoint() + talentPointManagement1.getCandidateUniqueId()
                     + talentPointManagement1.getResume() + talentPointManagement1.getTransactionType());
 
             if (Objects.nonNull(talentPointManagement1)) {
-                talentPointManagement1.setResume(pointManagment.getResume());
-                talentPointManagement1.setTransactionType(pointManagment.getTransactionType());
+                talentPointManagement1.setResume(pointManagement.getResume());
+                talentPointManagement1.setTransactionType(pointManagement.getTransactionType());
 
-                pointManagment = paymentService.removePoint(talentPointManagement1);
-                if (Objects.nonNull(pointManagment)) {
+                pointManagement = paymentService.removePoint(talentPointManagement1);
+                if (Objects.nonNull(pointManagement)) {
                     logger.info("inside removePoint mapping remove generatedPoint ==>>successful ");
                     return ResponseEntity.ok("resume download successfully");
                 }

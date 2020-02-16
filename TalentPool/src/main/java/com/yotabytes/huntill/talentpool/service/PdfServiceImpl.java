@@ -93,7 +93,7 @@ public class PdfServiceImpl implements PdfService {
 
 			PdfPTable table1 = new PdfPTable(1);
 
-			PdfPCell c1 = new PdfPCell(new Paragraph("Technical Skils", catFont));
+			PdfPCell c1 = new PdfPCell(new Paragraph("Technical Skills", catFont));
 			c1.setBackgroundColor(BaseColor.GRAY);
 			table1.addCell(c1);
 			table1.setSpacingBefore(10f);
@@ -137,7 +137,7 @@ public class PdfServiceImpl implements PdfService {
 				cell8 = new PdfPCell(new Paragraph(skill.getDatabase() + ","));
 			}
 
-			PdfPCell cell9 = new PdfPCell(new Paragraph("OS & Enviroment"));
+			PdfPCell cell9 = new PdfPCell(new Paragraph("OS & Environment"));
 			PdfPCell cell10 = new PdfPCell(new Paragraph("Windows, UNIX, LINUX, MAC."));
 
 			table.addCell(cell1);
@@ -185,14 +185,14 @@ public class PdfServiceImpl implements PdfService {
 			chunk2.setUnderline(1.5f, -1);
 			preface2.add(chunk2);
 			preface2.add(
-					" system that serves more than 700,000 individuals each year. The Office ofMental Health (OMH) operates psychiatric centres across the State, and regulates, certifiesand oversees more than 4,500 programs, which are operated by local governments and non-profit   agencies.   These   programs   include   various   inpatient   and   outpatient   programs,emergency,"
+					" system that serves more than 700,000 individuals each year. The Office of Mental Health (OMH) operates psychiatric centres across the State, and regulates, certifies and oversees more than 4,500 programs, which are operated by local governments and non-profit   agencies.   These   programs   include   various   inpatient   and   outpatient   programs,emergency,"
 							+ " community support, residential and family care programs." + "\n");
 
 			Chunk chunk3 = new Chunk(" Responsibilities:" + "\n");
 			chunk3.setUnderline(1.5f, -1);
 			preface2.add(chunk3);
 			preface2.add(
-					"Assist in the  Software   Development   Life   Cycle  (SDLC) which includes development,design, analysis, testing and Integration of various web based and client/server SMPD(Social and Messaging Product Development) applications in multi-platform environmentswith JAVA/J2EE technologies.Used   core   Java   concepts   like  Collections,   Multi-Threading,   Generics,   ExceptionHandling, Java Reflection and "
+					"Assist in the  Software   Development   Life   Cycle  (SDLC) which includes development,design, analysis, testing and Integration of various web based and client/server SMPD(Social and Messaging Product Development) applications in multi-platform environments with JAVA/J2EE technologies.Used   core   Java   concepts   like  Collections,   Multi-Threading,   Generics,   ExceptionHandling, Java Reflection and "
 							+ "Serialization.Used Java 1.8 features like stream and Lambda expressions.");
 
 			// addEmptyLine(preface, 2);
